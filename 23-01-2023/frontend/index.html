@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Gestão de Entregas</h1>
+    </header>
+
+    <main>
+        <div>
+            <label>Cliente:</label>
+                <input type="text" id="cliente"/>
+            <label>Endereço:</label>
+                <input type="text" id="endereco"/>
+            <label>Produto:</label>
+                <select id="produto">
+                    <option value="Refrigerante - Lata">Refrigerante - Lata</option>
+                    <option value="Refrigerante - 2L">Refrigerante - 2L</option>
+                    <option value="X-Burguer">X-Burguer</option>
+                    <option value="X-Frango">X-Frango</option>
+                    <option value="X-Tudo">X-Tudo</option>
+                    <option value="X-Bacon">X-Bacon</option>
+                </select>
+                
+            <button onClick="gerarPedido()">Gerar Pedido</button>
+        </div>
+
+        <div>
+            <div>
+                <h4>Em execução</h4>
+                <label>Id:</label>
+                <label>Produto:</label>
+                <label>Endereço:</label>
+                <label>Data:</label>
+                <label>Horário:</label>
+                <button>Enviar Entrega</button>
+            </div>
+
+            <div>
+                <h4>A caminho</h4>
+                <label>Id:</label>
+                <label>Produto:</label>
+                <label>Endereço:</label>
+                <label>Data:</label>
+                <label>Horário:</label>
+                <label>Entrega:</label>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
