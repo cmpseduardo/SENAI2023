@@ -21,7 +21,34 @@ const createPedido = (req, res) => {
     })
 }
 
+const updatePedidoEntrega = (req, res) => {
+    con.query(Pedido.toUpdateEntrega(req.body), (err, result) => {
+        if (err == null)
+            if (result.affectedRows > 0)
+                res.status(200).end();
+            else
+                res.status(404).end();
+        else
+            res.status(500).json(err).end();
+    });
+}
+
+const updatePedidoFim = (req, res) => {
+    con.query(Pedido.toUpdateFim(req.body), (err, result) => {
+        if (err == null)
+            if (result.affectedRows > 0)
+                res.status(200).end();
+            else
+                res.status(404).end();
+        else
+            res.status(500).json(err).end();
+    });
+}
+
+
 module.exports = {
     readPedidos,
-    createPedido
+    createPedido,
+    updatePedidoEntrega,
+    updatePedidoFim
 }

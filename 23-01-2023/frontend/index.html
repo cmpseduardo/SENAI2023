@@ -4,54 +4,74 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
     <title>Document</title>
 </head>
-<body>
+<body onLoad="carregarPedidos()">
     <header>
         <h1>Gestão de Entregas</h1>
     </header>
 
     <main>
-        <div>
-            <label>Cliente:</label>
-                <input type="text" id="cliente"/>
-            <label>Endereço:</label>
-                <input type="text" id="endereco"/>
-            <label>Produto:</label>
-                <select id="produto">
-                    <option value="Refrigerante - Lata">Refrigerante - Lata</option>
-                    <option value="Refrigerante - 2L">Refrigerante - 2L</option>
-                    <option value="X-Burguer">X-Burguer</option>
-                    <option value="X-Frango">X-Frango</option>
-                    <option value="X-Tudo">X-Tudo</option>
-                    <option value="X-Bacon">X-Bacon</option>
-                </select>
+        <div class="informacoes-pedido">
+                <div>
+                    <label>Cliente:</label>
+                        <input type="text" id="cliente"/>
+                </div>
+
+                <div>
+                    <label>Endereço:</label>
+                        <input type="text" id="endereco"/>
+                </div>
+
+                <div>
+                    <label>Produto:</label>
+                        <select id="produto">
+                            <option value="Refrigerante - Lata">Refrigerante - Lata</option>
+                            <option value="Refrigerante - 2L">Refrigerante - 2L</option>
+                            <option value="X-Burguer">X-Burguer</option>
+                            <option value="X-Frango">X-Frango</option>
+                            <option value="X-Tudo">X-Tudo</option>
+                            <option value="X-Bacon">X-Bacon</option>
+                        </select>
+                        <button onClick="gerarPedido()">Gerar Pedido</button>
+                </div>
+        </div>
+
+
+        <div class="rotulos">
+            <h4>Em execução</h4>
+            <h4>A caminho</h4>
+        </div>
+            <div class="pedidos">
+            <div class="em-execucao">
+                    
+                    <div class="item-pedido-em-ex modelo">
+                        <label id="label-id">Id: </label>
+                        <label id="label-cliente">Cliente: </label>
+                        <label id="label-produto">Produto: </label>
+                        <label id="label-endereco">Endereço: </label>
+                        <label id="label-data">Data: </label>
+                        <label id="label-horario">Horário: </label>
+                        <button onClick="enviarEntrega(this)"><img src = "https://cdn-icons-png.flaticon.com/512/1294/1294738.png">Enviar Entrega</button>
+                    </div>
+                </div>
+                <div class="a-caminho"></div>
                 
-            <button onClick="gerarPedido()">Gerar Pedido</button>
-        </div>
-
-        <div>
-            <div>
-                <h4>Em execução</h4>
-                <label>Id:</label>
-                <label>Produto:</label>
-                <label>Endereço:</label>
-                <label>Data:</label>
-                <label>Horário:</label>
-                <button>Enviar Entrega</button>
+                    <div class="item-pedido-a-cam modelo">
+                        <label id="label-id">Id: </label>
+                        <label id="label-cliente">Cliente: </label>
+                        <label id="label-produto">Produto: </label>
+                        <label id="label-endereco">Endereço: </label>
+                        <label id="label-data">Data: </label>
+                        <label id="label-horario">Horário: </label>
+                        <label id="label-horario-entrega">Entrega: </label>
+                        <label id="label-entregador">Entregador: </label>
+                        <button onClick="enviarPedidoFim(this)"><img src = "https://cdn-icons-png.flaticon.com/512/190/190411.png">Pedido Entregue</button>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <h4>A caminho</h4>
-                <label>Id:</label>
-                <label>Produto:</label>
-                <label>Endereço:</label>
-                <label>Data:</label>
-                <label>Horário:</label>
-                <label>Entrega:</label>
-            </div>
-        </div>
     </main>
 </body>
 </html>
