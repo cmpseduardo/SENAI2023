@@ -5,6 +5,7 @@ const prisma = new PrismaClient()
 const readSetores = async (req, res) => {
     let setor = await prisma.setor.findMany({
         select: {
+            id_setor: true,
             nome: true,
             comissao: true,
             vendedor: true,
@@ -16,7 +17,7 @@ const readSetores = async (req, res) => {
 }
 
 const createSetor = async (req, res) => {
-    let setor = await prisma.setor.create({
+    let setor = await prisma.setor.createMany({
         data: req.body
     })
 

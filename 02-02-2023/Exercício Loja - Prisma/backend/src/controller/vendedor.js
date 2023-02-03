@@ -9,7 +9,7 @@ const readVendedores = async (req, res) => {
 }
 
 const createVendedor = async (req, res) => {
-    let vendedor = await prisma.vendedor.create({
+    let vendedor = await prisma.vendedor.createMany({
         data: req.body
     })
 

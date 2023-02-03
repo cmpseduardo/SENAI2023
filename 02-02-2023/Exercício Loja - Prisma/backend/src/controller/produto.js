@@ -9,7 +9,7 @@ const readProdutos = async (req, res) => {
 }
 
 const createProduto = async (req, res) => {
-    let produto = await prisma.produto.create({
+    let produto = await prisma.produto.createMany({
         data: req.body
     })
 

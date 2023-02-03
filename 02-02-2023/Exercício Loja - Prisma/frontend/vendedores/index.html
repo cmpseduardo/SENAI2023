@@ -4,24 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="./index.js" defer></script>
     <title>Vendedores</title>
 </head>
-<body>
+<body onload="carregar()">
 
-    <div class = "cadastrar">
-        <label>Nome:</label>
-            <input placeholder = "Digite o nome"/>
-        
-        <label>Salário:</label>
-            <input placeholder = "Digite o salário (Ex.: 1500.50)"/>
+    <header>
+        <div class = "cadastrar">
+            <label>Nome:</label>
+                <input placeholder = "Digite o nome"/>
+            
+            <label>Salário:</label>
+                <input placeholder = "Digite o salário (Ex.: 1500.50)"/>
 
-        <label>ID Setor:</label>
-            <input placeholder = "Digite o ID do setor:"/>
-    </div>
+            <label>ID Setor:</label>
+                <input placeholder = "Digite o ID do setor:"/>
+        </div>
+    </header>
 
-    <label>ID: </label>
-    <label>Nome: </label>
-    <label>Salário: </label>
-    <label>Setor: </label>
+    <main>
+        <div class="vendedor modelo">
+            <label id="id">ID: </label>
+            <label id="nome">Nome: </label>
+            <label id="salario">Salário: </label>
+            <label id="setor" >Setor: </label>
+        </div>
+    </main>
+
 </body>
+
 </html>

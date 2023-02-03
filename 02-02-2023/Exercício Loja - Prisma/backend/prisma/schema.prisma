@@ -24,6 +24,7 @@ model Produto {
   valor Float
   id_setor Int
   id Setor @relation(fields: [id_setor], references: [id_setor])
+  detalhe Detalhe []
 }
 
 model Vendedor {
@@ -32,4 +33,22 @@ model Vendedor {
   salario Float
   id_setor Int
   id Setor @relation(fields: [id_setor], references: [id_setor])
+  venda Venda []
+}
+
+model Venda {
+  id_venda Int @id @default(autoincrement())
+  data_venda DateTime @default(now())
+  id_vendedor Int
+  id Vendedor @relation(fields:[id_vendedor], references: [id_vendedor])
+  detalhe Detalhe []
+}
+
+model Detalhe {
+  id_detalhe Int @id @default(autoincrement())
+  id_produto Int
+  id_venda Int
+  quantidade Int
+  id Produto @relation(fields:[id_produto], references: [id_produto])
+  id_v Venda @relation(fields:[id_venda], references: [id_venda])
 }
