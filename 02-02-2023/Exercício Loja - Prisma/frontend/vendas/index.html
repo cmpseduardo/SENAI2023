@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="index.js" defer></script>
+    <title>Vendas</title>
+</head>
+<body onload="carregar()">
+
+    <header>
+        <div class = "cadastrar">
+            <label>ID Vendedor:</label>
+                <input id="id-cadastrar" type="number" placeholder="Digite o ID do vendedor"/>
+                <input id="id-produto" type="number" placeholder="Digite o ID do produto"/>
+                <input id="quantidade" type="number" placeholder="Digite a quantidade"/>
+                <button onclick="enviar()">Enviar</button>
+        </div>
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data Venda</th>
+                    <th>Nome Vendedor</th>
+                    <th>ID Vendedor</th>
+                    <th>Quantidade</th>
+                    <th>ID Produto</th>
+                    <th>Nome Produto</th>
+                    <th>Valor Produto</th>
+                    <th>ID Setor</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="venda modelo tabela">
+                    <td id="data-venda"></td>
+                    <td id="nome-read"></td>
+                    <td id="id-vendedor-read"></td>
+                    <td id="quantidade-read"></td>
+                    <td id="id-produto-read"></td>
+                    <td id="nome-produto-read"></td>
+                    <td id="valor-produto-read"></td>
+                    <td id="id-setor-read"></td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </main>
+
+    <a href="../home.html" id="voltar-home">Voltar pra Home</a>
+
+</body>
+</html>

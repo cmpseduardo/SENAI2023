@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./style.css">
     <script src="./index.js" defer></script>
     <title>Vendedores</title>
 </head>
@@ -13,24 +14,40 @@
     <header>
         <div class = "cadastrar">
             <label>Nome:</label>
-                <input placeholder = "Digite o nome"/>
+                <input id="nome-cadastrar" type="text" placeholder = "Digite o nome"/>
             
             <label>Salário:</label>
-                <input placeholder = "Digite o salário (Ex.: 1500.50)"/>
+                <input id="salario-cadastrar" type="number" placeholder = "Digite o salário (Ex.: 1500.50)"/>
 
             <label>ID Setor:</label>
-                <input placeholder = "Digite o ID do setor:"/>
+                <input id="id-setor-cadastrar" type="number" placeholder = "Digite o ID do setor"/>
+
+                <button onclick="enviar()">Enviar</button>
         </div>
     </header>
 
     <main>
-        <div class="vendedor modelo">
-            <label id="id">ID: </label>
-            <label id="nome">Nome: </label>
-            <label id="salario">Salário: </label>
-            <label id="setor" >Setor: </label>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Vendedor</th>
+                    <th>Nome</th>
+                    <th>Salário</th>
+                    <th>ID Setor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="vendedor modelo">
+                    <td id="id"></td>
+                    <td id="nome"></td>
+                    <td id="salario"></td>
+                    <td id="setor"></td>
+                </tr>
+            </tbody>
+        </table>
     </main>
+
+    <a href="../home.html" id="voltar-home">Voltar pra Home</a>
 
 </body>
 

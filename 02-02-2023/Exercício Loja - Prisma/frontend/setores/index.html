@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./style.css">
     <script src="./index.js" defer></script>
     <title>Setores</title>
 </head>
@@ -12,21 +14,41 @@
     <header>
         <div class = "cadastrar">
             <label>Nome:</label>
-                <input placeholder = "Digite o nome"/>
+                <input id="nome-cadastrar" placeholder = "Digite o nome"/>
             
             <label>Comissão:</label>
-                <input placeholder = "Digite a comissão (Ex.: 500.50)"/>
+                <input id="comissao-cadastrar" placeholder = "Digite a comissão (Ex.: 3.5)"/>
 
+            <button onclick="enviar()">Enviar</button>
         </div>
     </header>
 
     <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Setor</th>
+                    <th>Nome</th>
+                    <th>Comissão</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class = "setor modelo tabela">
+                    <td id="id"></td>
+                    <td id="nome"></td>
+                    <td id="comissao"></td>
+                </tr>
+            </tbody>
+        </table>
+
         <div class="setor modelo">
             <label id="id">ID: </label>
             <label id="nome">Nome: </label>
             <label id="comissao">Comissão: </label>
         </div>
     </main>
+
+    <a href="../home.html" id="voltar-home">Voltar pra Home</a>
 
 </body>
 </html>
