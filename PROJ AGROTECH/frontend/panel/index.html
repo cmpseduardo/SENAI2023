@@ -30,13 +30,13 @@
         <div class="navcontainer">
             <nav class="nav">
                 <div class="nav-upper-options">
-                    <div class="nav-option option1">
+                    <div class="nav-option option1 selected-option" onclick="carregarPainel()">
                         <img src="https://cdn-icons-png.flaticon.com/128/3405/3405258.png" class="nav-img"
                             alt="dashboard">
                         <h3> Painel</h3>
                     </div>
 
-                    <div class="option2 nav-option">
+                    <div class="option2 nav-option" onclick="carregarAlocacoes()">
                         <img src="https://cdn-icons-png.flaticon.com/128/25/25430.png" class="nav-img" alt="articles">
                         <h3> Alocações</h3>
                     </div>
@@ -60,7 +60,7 @@
                 </div>
             </nav>
         </div>
-        <div class="main">
+        <div class="main-home">
 
             <div class="searchbar2">
                 <input type="text" name="" id="" placeholder="Search">
@@ -107,10 +107,10 @@
             <div class="report-container">
                 <div class="report-header">
                     <h1 class="recent-Articles">Alocações Recentes</h1>
-                    <button class="view">Ver Todas</button>
+                    <button class="view" onclick="carregarAlocacoes()">Ver Completo</button>
                 </div>
 
-                <table>
+                <table class="alocacoes-recentes">
 
                     <thead>
                         <tr>
@@ -134,8 +134,34 @@
                         </tr>
                     </tbody>
                 </table>
-
             </div>
+        </div>
+
+        <div class="main-alocacoes hidden">
+            <table class="ver-alocacoes">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>MOTORISTA</th>
+                        <th>VEÍCULO</th>
+                        <th>DATA SAÍDA</th>
+                        <th>DATA RETORNO</th>
+                        <th>DESCRIÇÃO</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="informacoes modelo">
+                        <td id="id-alocacao">Teste</td>
+                        <td id="motorista">Teste</td>
+                        <td id="veiculo">Teste</td>
+                        <td id="data-saida">Teste</td>
+                        <td id="data-retorno">Teste</td>
+                        <td id="descricao">Testendo o teste do teste</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     </div>

@@ -11,6 +11,7 @@ router.get('/motorista', Motorista.read);
 router.get('/veiculo', Veiculo.read);
 router.get('/alocacao', Alocacao.read);
 router.get('/manutencao', Manutencao.read);
+router.get('/usuario', Usuario.read);
 
 router.post('/motorista', Motorista.create)
 router.post('/manutencao', Manutencao.create)
@@ -22,10 +23,12 @@ router.delete('/motorista', Motorista.remove)
 router.delete('/manutencao', Manutencao.remove)
 router.delete('/veiculo', Veiculo.remove)
 router.delete('/alocacao', Alocacao.remove)
+router.delete('/usuario', Usuario.remove)
 
 router.put('/motorista', Motorista.update)
 router.put('/manutencao', Manutencao.update)
 router.put('/veiculo', Veiculo.update)
 router.put('/alocacao', Alocacao.update)
+router.put('/usuario', Usuario.update)
 
 module.exports = router;
