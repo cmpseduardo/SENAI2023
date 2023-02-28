@@ -43,7 +43,7 @@ model Manutencao {
   data_inicio DateTime @default(now())
   data_fim DateTime?
   custo String
-  descricao String
+  desc String
   veiculo Veiculo @relation(fields: [id_veiculo], references: [id_veiculo])
 }
 
@@ -53,7 +53,7 @@ model Alocacao{
   id_veiculo Int
   data_saida DateTime @default(now())
   data_retorno DateTime?
-  descricao String
+  desc String
   motorista Motorista @relation(fields: [id_motorista], references: [id_motorista])
   veiculo Veiculo @relation(fields: [id_veiculo], references: [id_veiculo])
 }

@@ -41,12 +41,12 @@
                         <h3> Alocações</h3>
                     </div>
 
-                    <div class="nav-option option3">
+                    <div class="nav-option option3" onclick="carregarManutencoes()">
                         <img src="https://cdn-icons-png.flaticon.com/512/2/2056.png" class="nav-img" alt="report">
                         <h3> Manutenções</h3>
                     </div>
 
-                    <div class="nav-option option4">
+                    <div class="nav-option option4" onclick="carregarMotoristas()">
                         <img src="https://cdn-icons-png.flaticon.com/512/2579/2579042.png" class="nav-img"
                             alt="institution">
                         <h3> Motoristas</h3>
@@ -130,7 +130,7 @@
                             <td id="veiculo">Teste</td>
                             <td id="data-saida">Teste</td>
                             <td id="data-retorno">Teste</td>
-                            <td id="descricao">Testendo o teste do teste</td>
+                            <td id="descricao">AB</td>
                         </tr>
                     </tbody>
                 </table>
@@ -151,14 +151,63 @@
                     </tr>
                 </thead>
 
+                <tbody class="tbody-alocacoes">
+                    <tr class="informacoes-alocacao modelo">
+                        <td id="id-alocacao"></td>
+                        <td id="motorista"></td>
+                        <td id="veiculo"></td>
+                        <td id="data-saida"></td>
+                        <td id="data-retorno"></td>
+                        <td id="descricao-alocacao"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="main-manutencoes hidden">
+            <table class="ver-manutencoes">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>DATA INÍCIO</th>
+                        <th>DATA FIM</th>
+                        <th>CUSTO</th>
+                        <th>DESCRIÇÃO</th>
+
+                    </tr>
+                </thead>
+
                 <tbody>
                     <tr class="informacoes modelo">
-                        <td id="id-alocacao">Teste</td>
-                        <td id="motorista">Teste</td>
-                        <td id="veiculo">Teste</td>
-                        <td id="data-saida">Teste</td>
-                        <td id="data-retorno">Teste</td>
-                        <td id="descricao">Testendo o teste do teste</td>
+                        <td id="id-manutencao">Teste</td>
+                        <td id="data-inicio">Teste</td>
+                        <td id="data-fim">Teste</td>
+                        <td id="custo">Teste</td>
+                        <td id="descricao-manutencao">Testendo o teste do teste</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="main-motoristas hidden">
+            <table class="ver-motoristas">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>CPF</th>
+                        <th>CNH</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="informacoes modelo">
+                        <td id="id-motorista">Teste</td>
+                        <td id="nome-motorista">Teste</td>
+                        <td id="cpf-motorista">Teste</td>
+                        <td id="cnh-motorista">Teste</td>
                     </tr>
                 </tbody>
             </table>

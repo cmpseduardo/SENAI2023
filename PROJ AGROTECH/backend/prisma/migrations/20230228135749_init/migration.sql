@@ -40,7 +40,7 @@ CREATE TABLE `Manutencao` (
     `data_inicio` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `data_fim` DATETIME(3) NULL,
     `custo` VARCHAR(191) NOT NULL,
-    `descricao` VARCHAR(191) NOT NULL,
+    `desc` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id_manutencao`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -52,7 +52,7 @@ CREATE TABLE `Alocacao` (
     `id_veiculo` INTEGER NOT NULL,
     `data_saida` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `data_retorno` DATETIME(3) NULL,
-    `descricao` VARCHAR(191) NOT NULL,
+    `desc` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id_alocacao`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
