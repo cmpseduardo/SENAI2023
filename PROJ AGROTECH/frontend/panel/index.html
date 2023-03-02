@@ -36,8 +36,8 @@
                         <h3> Painel</h3>
                     </div>
 
-                    <div class="option2 nav-option" onclick="carregarAlocacoes()">
-                        <img src="https://cdn-icons-png.flaticon.com/128/25/25430.png" class="nav-img" alt="articles">
+                    <div class="nav-option option2" onclick="carregarAlocacoes()">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1069/1069138.png" class="nav-img" alt="articles">
                         <h3> Alocações</h3>
                     </div>
 
@@ -50,6 +50,12 @@
                         <img src="https://cdn-icons-png.flaticon.com/512/2579/2579042.png" class="nav-img"
                             alt="institution">
                         <h3> Motoristas</h3>
+                    </div>
+
+                    <div class="nav-option option5" onclick="carregarVeiculos()">
+                        <img src="https://cdn-icons-png.flaticon.com/128/25/25430.png" class="nav-img"
+                            alt="institution">
+                        <h3> Veículos</h3>
                     </div>
 
                     <div class="nav-option logout">
@@ -138,6 +144,13 @@
         </div>
 
         <div class="main-alocacoes hidden">
+            <form>
+                <input placeholder="Digite o ID do motorista" type="text">
+                <input placeholder="Digite o ID do veículo" type="text">
+                <input placeholder="Digite a tipo do veículo" type="text">
+                <input placeholder="Digite a descrição" type="text">
+                <button>Adicionar Veículo</button>
+            </form>
             <table class="ver-alocacoes">
 
                 <thead>
@@ -149,9 +162,6 @@
                         <th>DATA RETORNO</th>
                         <th>DESCRIÇÃO</th>
                     </tr>
-                </thead>
-
-                <tbody class="tbody-alocacoes">
                     <tr class="informacoes-alocacao modelo">
                         <td id="id-alocacao"></td>
                         <td id="motorista"></td>
@@ -160,37 +170,54 @@
                         <td id="data-retorno"></td>
                         <td id="descricao-alocacao"></td>
                     </tr>
+                </thead>
+
+                <tbody class="tbody-alocacoes">
                 </tbody>
             </table>
         </div>
 
         <div class="main-manutencoes hidden">
+            <form>
+                <input placeholder="Digite o ID do veículo" type="text">
+                <input placeholder="Digite a descrição do veículo" type="text">
+                <input placeholder="Digite o tipo do veículo" type="text">
+                <button>Adicionar Veículo</button>
+            </form>
             <table class="ver-manutencoes">
 
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>ID VEICULO</th>
                         <th>DATA INÍCIO</th>
                         <th>DATA FIM</th>
                         <th>CUSTO</th>
                         <th>DESCRIÇÃO</th>
 
                     </tr>
+                    <tr class="informacoes-manutencao modelo">
+                        <td id="id-manutencao"></td>
+                        <td id="id-veiculo"></td>
+                        <td id="data-inicio-manutencao"></td>
+                        <td id="data-fim-manutencao"></td>
+                        <td id="custo-manutencao"></td>
+                        <td id="descricao-manutencao"></td>
+                    </tr>
                 </thead>
 
-                <tbody>
-                    <tr class="informacoes modelo">
-                        <td id="id-manutencao">Teste</td>
-                        <td id="data-inicio">Teste</td>
-                        <td id="data-fim">Teste</td>
-                        <td id="custo">Teste</td>
-                        <td id="descricao-manutencao">Testendo o teste do teste</td>
-                    </tr>
+                <tbody class="tbody-manutencoes">
                 </tbody>
             </table>
         </div>
 
         <div class="main-motoristas hidden">
+            <form>
+                <input placeholder="Digite o nome do motorista" type="text">
+                <input placeholder="Digite o CPF do motorista" type="text">
+                <input placeholder="Digite o nº da CNH do motorista" type="text">
+                <button>Adicionar Veículo</button>
+            </form>
             <table class="ver-motoristas">
 
                 <thead>
@@ -200,15 +227,49 @@
                         <th>CPF</th>
                         <th>CNH</th>
                     </tr>
+                    <tr class="informacoes-motorista modelo">
+                        <td id="id-motorista"></td>
+                        <td id="nome-motorista"></td>
+                        <td id="cpf-motorista"></td>
+                        <td id="cnh-motorista"></td>
+                    </tr>
                 </thead>
 
-                <tbody>
-                    <tr class="informacoes modelo">
-                        <td id="id-motorista">Teste</td>
-                        <td id="nome-motorista">Teste</td>
-                        <td id="cpf-motorista">Teste</td>
-                        <td id="cnh-motorista">Teste</td>
+                <tbody class="tbody-motoristas">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="main-veiculos hidden">
+            <form>
+                <input placeholder="Digite a placa do veículo" type="text">
+                <input placeholder="Digite o modelo do veículo" type="text">
+                <input placeholder="Digite a marca do veículo" type="text">
+                <input placeholder="Digite o tipo do veículo" type="text">
+                <button>Adicionar Veículo</button>
+            </form>
+            <table class="ver-veiculos">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>PLACA</th>
+                        <th>MODELO</th>
+                        <th>MARCA</th>
+                        <th>TIPO</th>
+                        <th>DISPONIBILIDADE</th>
                     </tr>
+                    <tr class="informacoes-veiculo modelo">
+                        <td id="id-veiculo"></td>
+                        <td id="placa-veiculo"></td>
+                        <td id="modelo-veiculo"></td>
+                        <td id="marca-veiculo"></td>
+                        <td id="tipo-veiculo"></td>
+                        <td id="disponivel-veiculo"></td>
+                    </tr>
+                </thead>
+
+                <tbody class="tbody-veiculos">
                 </tbody>
             </table>
         </div>
