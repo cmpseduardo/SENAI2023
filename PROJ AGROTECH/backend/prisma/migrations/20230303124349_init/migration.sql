@@ -39,7 +39,7 @@ CREATE TABLE `Manutencao` (
     `id_veiculo` INTEGER NOT NULL,
     `data_inicio` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `data_fim` DATETIME(3) NULL,
-    `custo` VARCHAR(191) NOT NULL,
+    `custo` DOUBLE NOT NULL,
     `desc` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id_manutencao`)

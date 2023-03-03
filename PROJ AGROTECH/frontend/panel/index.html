@@ -179,10 +179,11 @@
 
         <div class="main-manutencoes hidden">
             <form>
-                <input placeholder="Digite o ID do veículo" type="text">
-                <input placeholder="Digite a descrição do veículo" type="text">
-                <input placeholder="Digite o tipo do veículo" type="text">
-                <button>Adicionar Veículo</button>
+                <input id="id-veiculo-manutencao-input" placeholder="Digite o ID do veículo" type="text">
+                <input id="data-fim-manutencao-input" placeholder="Digite a data do fim" type="date">
+                <input id="custo-manutencao-input" placeholder="Digite o custo" type="number">
+                <input id="descricao-manutencao-input" placeholder="Digite a descrição" type="text">
+                <button onclick="cadastrarManutencoes()">Adicionar Manutenção</button>
             </form>
             <table class="ver-manutencoes">
 
@@ -213,10 +214,10 @@
 
         <div class="main-motoristas hidden">
             <form>
-                <input placeholder="Digite o nome do motorista" type="text">
-                <input placeholder="Digite o CPF do motorista" type="text">
-                <input placeholder="Digite o nº da CNH do motorista" type="text">
-                <button>Adicionar Veículo</button>
+                <input id="nome-motorista-input" placeholder="Digite o nome do motorista" type="text">
+                <input id="cpf-motorista-input" placeholder="Digite o CPF do motorista" type="text">
+                <input id="cnh-motorista-input" placeholder="Digite o nº da CNH do motorista" type="text">
+                <button onclick="cadastrarMotorista()">Adicionar Motorista</button>
             </form>
             <table class="ver-motoristas">
 
@@ -242,11 +243,11 @@
 
         <div class="main-veiculos hidden">
             <form>
-                <input placeholder="Digite a placa do veículo" type="text">
-                <input placeholder="Digite o modelo do veículo" type="text">
-                <input placeholder="Digite a marca do veículo" type="text">
-                <input placeholder="Digite o tipo do veículo" type="text">
-                <button>Adicionar Veículo</button>
+                <input id="placa-veiculo-input" placeholder="Digite a placa do veículo" type="text">
+                <input id="modelo-veiculo-input" placeholder="Digite o modelo do veículo" type="text">
+                <input id="marca-veiculo-input" placeholder="Digite a marca do veículo" type="text">
+                <input id="tipo-veiculo-input" placeholder="Digite o tipo do veículo" type="text">
+                <button onclick="cadastrarVeiculo()">Adicionar Veículo</button>
             </form>
             <table class="ver-veiculos">
 

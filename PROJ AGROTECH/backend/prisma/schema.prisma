@@ -42,7 +42,7 @@ model Manutencao {
   id_veiculo Int
   data_inicio DateTime @default(now())
   data_fim DateTime?
-  custo String
+  custo Float
   desc String
   veiculo Veiculo @relation(fields: [id_veiculo], references: [id_veiculo])
 }
