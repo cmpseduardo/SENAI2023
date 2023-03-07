@@ -10,11 +10,11 @@
     <script src="./script.js" defer></script>
 </head>
 
-<body>
+<body onload="contar(), alocacoesRecentes()">
     <header>
 
         <div class="logosec">
-            <div class="logo">Painel AgroTech</div>
+            <div class="logo">Agrotech — A melhor do Agronegócio Brasileiro</div>
         </div>
 
         <div class="message">
@@ -32,23 +32,23 @@
                 <div class="nav-upper-options">
                     <div class="nav-option option1 selected-option" onclick="carregarPainel()">
                         <img src="https://cdn-icons-png.flaticon.com/128/3405/3405258.png" class="nav-img"
-                            alt="dashboard">
+                            alt="painel">
                         <h3> Painel</h3>
                     </div>
 
                     <div class="nav-option option2" onclick="carregarAlocacoes()">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1069/1069138.png" class="nav-img" alt="articles">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1069/1069138.png" class="nav-img" alt="alocacoes">
                         <h3> Alocações</h3>
                     </div>
 
                     <div class="nav-option option3" onclick="carregarManutencoes()">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2/2056.png" class="nav-img" alt="report">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2/2056.png" class="nav-img" alt="manutencoes">
                         <h3> Manutenções</h3>
                     </div>
 
                     <div class="nav-option option4" onclick="carregarMotoristas()">
                         <img src="https://cdn-icons-png.flaticon.com/512/2579/2579042.png" class="nav-img"
-                            alt="institution">
+                            alt="motoristas">
                         <h3> Motoristas</h3>
                     </div>
 
@@ -66,7 +66,7 @@
                 </div>
             </nav>
         </div>
-        <div class="main-home">
+        <div class="main-home pag">
 
             <div class="searchbar2">
                 <input type="text" name="" id="" placeholder="Search">
@@ -76,35 +76,28 @@
 
                 <div class="box box1">
                     <div class="text">
-                        <h2 class="topic-heading">N VEIC</h2>
+                        <h2 class="topic-heading" id="n-veic"></h2>
                         <h2 class="topic">Veículos</h2>
                     </div>
                 </div>
 
                 <div class="box box2">
                     <div class="text">
-                        <h2 class="topic-heading">N VEIC</h2>
+                        <h2 class="topic-heading" id="n-veic-manutencoes">N VEIC</h2>
                         <h2 class="topic">Veículos em Manutenção</h2>
                     </div>
                 </div>
 
                 <div class="box box3">
                     <div class="text">
-                        <h2 class="topic-heading">N VEIC</h2>
+                        <h2 class="topic-heading" id="veic-uso">N VEIC</h2>
                         <h2 class="topic">Veículos em Uso</h2>
-                    </div>
-                </div>
-
-                <div class="box box4">
-                    <div class="text">
-                        <h2 class="topic-heading">N VEIC</h2>
-                        <h2 class="topic">Em Alocação</h2>
                     </div>
                 </div>
 
                 <div class="box box5">
                     <div class="text">
-                        <h2 class="topic-heading">N MOTOR</h2>
+                        <h2 class="topic-heading" id="n-motoristas">N MOTOR</h2>
                         <h2 class="topic">Motoristas</h2>
                     </div>
                 </div>
@@ -112,44 +105,45 @@
 
             <div class="report-container">
                 <div class="report-header">
-                    <h1 class="recent-Articles">Alocações Recentes</h1>
+                    <h1 class="recent-alocacoes">Alocações Recentes</h1>
                     <button class="view" onclick="carregarAlocacoes()">Ver Completo</button>
                 </div>
 
-                <table class="alocacoes-recentes">
+                <table class="ver-alocacoes-recentes">
 
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>MOTORISTA</th>
-                            <th>VEÍCULO</th>
-                            <th>DATA SAÍDA</th>
+                            <th>ID MOTORISTA</th>
+                            <th>ID VEICULO</th>
+                            <th>DATA SAIDA</th>
                             <th>DATA RETORNO</th>
                             <th>DESCRIÇÃO</th>
+    
+                        </tr>
+                        <tr class="informacoes-alocacao-painel modelo">
+                            <td id="id-alocacao-painel"></td>
+                            <td id="id-motorista-painel"></td>
+                            <td id="id-veiculo-painel"></td>
+                            <td id="data-saida-painel"></td>
+                            <td id="data-retorno-painel"></td>
+                            <td id="descricao-painel"></td>
+                            
                         </tr>
                     </thead>
-
-                    <tbody>
-                        <tr class="informacoes modelo">
-                            <td id="id-alocacao">Teste</td>
-                            <td id="motorista">Teste</td>
-                            <td id="veiculo">Teste</td>
-                            <td id="data-saida">Teste</td>
-                            <td id="data-retorno">Teste</td>
-                            <td id="descricao">AB</td>
-                        </tr>
+    
+                    <tbody class="tbody-alocacoes-painel">
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <div class="main-alocacoes hidden">
+        <div class="main-alocacoes modelo pag">
             <form>
-                <input placeholder="Digite o ID do motorista" type="text">
-                <input placeholder="Digite o ID do veículo" type="text">
-                <input placeholder="Digite a tipo do veículo" type="text">
-                <input placeholder="Digite a descrição" type="text">
-                <button>Adicionar Veículo</button>
+                <input id="id-motorista-alocacao" placeholder="Digite o ID do motorista" type="text">
+                <input id="id-veiculo-alocacao" placeholder="Digite o ID do veículo" type="text">
+                <input id="desc-alocacao" placeholder="Digite a descrição" type="text">
+                <button onclick="cadastrarAlocacao()">Adicionar Alocacoes</button>
             </form>
             <table class="ver-alocacoes">
 
@@ -169,6 +163,7 @@
                         <td id="data-saida"></td>
                         <td id="data-retorno"></td>
                         <td id="descricao-alocacao"></td>
+                        <td><button>Editar</button></td>
                     </tr>
                 </thead>
 
@@ -177,10 +172,9 @@
             </table>
         </div>
 
-        <div class="main-manutencoes hidden">
+        <div class="main-manutencoes modelo pag">
             <form>
                 <input id="id-veiculo-manutencao-input" placeholder="Digite o ID do veículo" type="text">
-                <input id="data-fim-manutencao-input" placeholder="Digite a data do fim" type="date">
                 <input id="custo-manutencao-input" placeholder="Digite o custo" type="number">
                 <input id="descricao-manutencao-input" placeholder="Digite a descrição" type="text">
                 <button onclick="cadastrarManutencoes()">Adicionar Manutenção</button>
@@ -204,6 +198,7 @@
                         <td id="data-fim-manutencao"></td>
                         <td id="custo-manutencao"></td>
                         <td id="descricao-manutencao"></td>
+                        <td><button>Finalizar manutenção</button></td>
                     </tr>
                 </thead>
 
@@ -212,7 +207,7 @@
             </table>
         </div>
 
-        <div class="main-motoristas hidden">
+        <div class="main-motoristas modelo pag">
             <form>
                 <input id="nome-motorista-input" placeholder="Digite o nome do motorista" type="text">
                 <input id="cpf-motorista-input" placeholder="Digite o CPF do motorista" type="text">
@@ -233,6 +228,7 @@
                         <td id="nome-motorista"></td>
                         <td id="cpf-motorista"></td>
                         <td id="cnh-motorista"></td>
+                        <td><button>Editar</button></td>
                     </tr>
                 </thead>
 
@@ -241,7 +237,7 @@
             </table>
         </div>
 
-        <div class="main-veiculos hidden">
+        <div class="main-veiculos modelo pag">
             <form>
                 <input id="placa-veiculo-input" placeholder="Digite a placa do veículo" type="text">
                 <input id="modelo-veiculo-input" placeholder="Digite o modelo do veículo" type="text">
@@ -267,6 +263,7 @@
                         <td id="marca-veiculo"></td>
                         <td id="tipo-veiculo"></td>
                         <td id="disponivel-veiculo"></td>
+                        <td><button>Editar</button></td>
                     </tr>
                 </thead>
 

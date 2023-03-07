@@ -1,11 +1,122 @@
+// PAINEL
+function contar() {
+    function veiculos() {
+        let cont = 0
+        fetch("http://localhost:3000/veiculo")
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                data.forEach(veiculo => {
+                    cont++
+                    if (veiculo != undefined) {
+                        document.querySelector("#n-veic").innerHTML = cont
+                    }
+                })
+            })
+    }
+    function veiculosManutencao() {
+        let cont = 0
+        fetch("http://localhost:3000/manutencao")
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                data.forEach(manutencao => {
+                    cont++
+                    if (manutencao != undefined) {
+                        document.querySelector("#n-veic-manutencoes").innerHTML = cont
+                    }
+                })
+            })
+    }
+    function veiculosEmUso() {
+        let cont = 0
+        fetch("http://localhost:3000/veiculo")
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                data.forEach(veiculo => {
+                    if (veiculo != undefined && veiculo.disponivel == false) {
+                        cont++
+                        document.querySelector("#veic-uso").innerHTML = cont
+                    }
+                })
+            })
+    }
+    function motoristas() {
+        let cont = 0
+        fetch("http://localhost:3000/motorista")
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                data.forEach(motorista => {
+                    cont++
+                    if (motorista != undefined) {
+                        document.querySelector("#n-motoristas").innerHTML = cont
+                    }
+                })
+            })
+    }
+
+    veiculos()
+    veiculosManutencao()
+    veiculosEmUso()
+    motoristas()
+}
+
+function alocacoesRecentes() {
+    let itemAlocacao = document.querySelector(".informacoes-alocacao-painel")
+    fetch("http://localhost:3000/alocacao")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            data.sort((a, b) => b.id_alocacao - a.id_alocacao);
+            document.querySelector(".tbody-alocacoes-painel").innerHTML = ""
+
+            for (let i = 0; i < 3; i++) {
+                const item = data[i]
+
+                let novoItem = itemAlocacao.cloneNode(true)
+                novoItem.classList.remove("modelo")
+
+                idAlocacao = novoItem.querySelector("#id-alocacao-painel")
+                motorista = novoItem.querySelector("#id-motorista-painel")
+                veiculo = novoItem.querySelector("#id-veiculo-painel")
+                dataSaida = novoItem.querySelector("#data-saida-painel")
+                dataRetorno = novoItem.querySelector("#data-retorno-painel")
+                descricao = novoItem.querySelector("#descricao-painel")
+                console.log(novoItem)
+
+                idAlocacao.innerHTML = item.id_alocacao;
+                motorista.innerHTML = item.id_motorista;
+                veiculo.innerHTML = item.id_veiculo;
+                dataSaida.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(item.data_saida));
+                if (item.data_retorno == null) {
+                    dataRetorno.innerHTML = ""
+                } else {
+                    dataRetorno.innerHTML = Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(item.data_retorno));
+                }
+                descricao.innerHTML = item.desc;
+
+
+                document.querySelector(".tbody-alocacoes-painel").appendChild(novoItem);
+            }
+        })
+
+}
+
 // FETCH GET
 function carregarPainel() {
-    document.querySelector(".main-alocacoes").classList.add("hidden")
-    document.querySelector(".main-manutencoes").classList.add("hidden")
-    document.querySelector(".main-motoristas").classList.add("hidden")
-    document.querySelector(".main-veiculos").classList.add("hidden")
+    document.querySelector(".main-alocacoes").classList.add("modelo")
+    document.querySelector(".main-manutencoes").classList.add("modelo")
+    document.querySelector(".main-motoristas").classList.add("modelo")
+    document.querySelector(".main-veiculos").classList.add("modelo")
 
-    document.querySelector(".main-home").classList.remove("hidden")
+    document.querySelector(".main-home").classList.remove("modelo")
 
     document.querySelector(".option1").classList.add("selected-option")
     document.querySelector(".option2").classList.remove("selected-option")
@@ -15,12 +126,12 @@ function carregarPainel() {
 }
 
 function carregarAlocacoes() {
-    document.querySelector(".main-home").classList.add("hidden")
-    document.querySelector(".main-manutencoes").classList.add("hidden")
-    document.querySelector(".main-motoristas").classList.add("hidden")
-    document.querySelector(".main-veiculos").classList.add("hidden")
+    document.querySelector(".main-home").classList.add("modelo")
+    document.querySelector(".main-manutencoes").classList.add("modelo")
+    document.querySelector(".main-motoristas").classList.add("modelo")
+    document.querySelector(".main-veiculos").classList.add("modelo")
 
-    document.querySelector(".main-alocacoes").classList.remove("hidden")
+    document.querySelector(".main-alocacoes").classList.remove("modelo")
 
     document.querySelector(".option1").classList.remove("selected-option")
     document.querySelector(".option2").classList.add("selected-option")
@@ -45,7 +156,7 @@ function carregarAlocacoes() {
                 motorista = novoItem.querySelector("#motorista")
                 veiculo = novoItem.querySelector("#veiculo")
                 dataSaida = novoItem.querySelector("#data-saida")
-                dataRetorno = novoItem.querySelector("#data-retorno")
+                dataReentorno = novoItem.querySelector("#data-retorno")
                 descricao = novoItem.querySelector("#descricao-alocacao")
                 console.log(novoItem)
 
@@ -53,7 +164,11 @@ function carregarAlocacoes() {
                 motorista.innerHTML = alocacao.id_motorista;
                 veiculo.innerHTML = alocacao.id_veiculo;
                 dataSaida.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_saida));
-                dataRetorno.innerHTML = Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_retorno));
+                if (alocacao.data_retorno == null) {
+                    dataRetorno.innerHTML = ""
+                } else {
+                    dataRetorno.innerHTML = Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_retorno));
+                }
                 descricao.innerHTML = alocacao.desc;
 
 
@@ -63,12 +178,12 @@ function carregarAlocacoes() {
 }
 
 function carregarManutencoes() {
-    document.querySelector(".main-home").classList.add("hidden")
-    document.querySelector(".main-alocacoes").classList.add("hidden")
-    document.querySelector(".main-motoristas").classList.add("hidden")
-    document.querySelector(".main-veiculos").classList.add("hidden")
+    document.querySelector(".main-home").classList.add("modelo")
+    document.querySelector(".main-alocacoes").classList.add("modelo")
+    document.querySelector(".main-motoristas").classList.add("modelo")
+    document.querySelector(".main-veiculos").classList.add("modelo")
 
-    document.querySelector(".main-manutencoes").classList.remove("hidden")
+    document.querySelector(".main-manutencoes").classList.remove("modelo")
 
     document.querySelector(".option1").classList.remove("selected-option")
     document.querySelector(".option2").classList.remove("selected-option")
@@ -100,8 +215,12 @@ function carregarManutencoes() {
 
                 idManutencao.innerHTML = manutencao.id_manutencao
                 idVeiculo.innerHTML = manutencao.id_veiculo
-                dataInicio.innerHTML = manutencao.data_inicio
-                dataFim.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(manutencao.data_fim))
+                dataInicio.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(manutencao.data_inicio))
+                if (manutencao.data_fim == null) {
+                    dataFim.innerHTML = ""
+                } else {
+                    dataFim.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(manutencao.data_fim))
+                }
                 custoManutencao.innerHTML = "R$" + manutencao.custo + ",00"
                 descricao.innerHTML = manutencao.desc
 
@@ -112,12 +231,12 @@ function carregarManutencoes() {
 }
 
 function carregarMotoristas() {
-    document.querySelector(".main-home").classList.add("hidden")
-    document.querySelector(".main-alocacoes").classList.add("hidden")
-    document.querySelector(".main-manutencoes").classList.add("hidden")
-    document.querySelector(".main-veiculos").classList.add("hidden")
+    document.querySelector(".main-home").classList.add("modelo")
+    document.querySelector(".main-alocacoes").classList.add("modelo")
+    document.querySelector(".main-manutencoes").classList.add("modelo")
+    document.querySelector(".main-veiculos").classList.add("modelo")
 
-    document.querySelector(".main-motoristas").classList.remove("hidden")
+    document.querySelector(".main-motoristas").classList.remove("modelo")
 
     document.querySelector(".option1").classList.remove("selected-option")
     document.querySelector(".option2").classList.remove("selected-option")
@@ -156,12 +275,12 @@ function carregarMotoristas() {
 }
 
 function carregarVeiculos() {
-    document.querySelector(".main-home").classList.add("hidden")
-    document.querySelector(".main-alocacoes").classList.add("hidden")
-    document.querySelector(".main-manutencoes").classList.add("hidden")
-    document.querySelector(".main-motoristas").classList.add("hidden")
+    document.querySelector(".main-home").classList.add("modelo")
+    document.querySelector(".main-alocacoes").classList.add("modelo")
+    document.querySelector(".main-manutencoes").classList.add("modelo")
+    document.querySelector(".main-motoristas").classList.add("modelo")
 
-    document.querySelector(".main-veiculos").classList.remove("hidden")
+    document.querySelector(".main-veiculos").classList.remove("modelo")
 
     document.querySelector(".option1").classList.remove("selected-option")
     document.querySelector(".option2").classList.remove("selected-option")
@@ -215,10 +334,9 @@ function carregarVeiculos() {
 // FETCH POST
 function cadastrarManutencoes() {
     let data = JSON.stringify({
-        idVeiculo: Number(document.querySelector("#id-veiculo-manutencao-input").value),
-        dataFim: document.querySelector("#data-fim-manutencao-input").value,
-        custoManutencao: document.querySelector("#custo-manutencao-input").value,
-        descricaoManutencao: document.querySelector("#descricao-manutencao-input").value
+        id_veiculo: Number(document.querySelector("#id-veiculo-manutencao-input").value),
+        custo: Number(document.querySelector("#custo-manutencao-input").value),
+        desc: document.querySelector("#descricao-manutencao-input").value
     });
 
 
@@ -288,6 +406,33 @@ function cadastrarVeiculo() {
         .then(data => {
             console.log(data)
             if (data.id_veiculo != undefined) {
+                alert("Cadastrado com sucesso!")
+            } else {
+                alert("Ocorreu algum erro");
+            }
+        })
+}
+
+
+function cadastrarAlocacao() {
+    let data = JSON.stringify({
+        id_motorista: Number(document.querySelector("#id-motorista-alocacao").value),
+        id_veiculo: Number(document.querySelector("#id-veiculo-alocacao").value),
+        desc: document.querySelector("#desc-alocacao").value
+    });
+
+
+    fetch("http://localhost:3000/alocacao", {
+        "method": 'POST',
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": data
+    })
+        .then(resp => { return resp.json() })
+        .then(data => {
+            console.log(data)
+            if (data.id_alocacao != undefined) {
                 alert("Cadastrado com sucesso!")
             } else {
                 alert("Ocorreu algum erro");

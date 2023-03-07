@@ -29,7 +29,7 @@ header {
     height: 70px;
     width: 100vw;
     padding: 0 30px;
-    background-color: var(--background-color4);
+    background-color: var(--background-color1);
     position: fixed;
     z-index: 100;
     display: flex;
@@ -40,7 +40,7 @@ header {
 .logo {
     font-size: 27px;
     font-weight: 600;
-    color: var(--background-color1);
+    color: var(--background-color4);
 }
 
 .icn {
@@ -97,6 +97,10 @@ header {
 
 .dpicn {
     height: 42px;
+}
+
+.pag {
+    padding: 50px;
 }
 
 .main-home {
@@ -186,32 +190,25 @@ header {
     gap: 30px;
 }
 
-.selected-option{
+.selected-option {
     border-left: 5px solid #239700;
     background-color: var(--Border-color);
     color: white;
 }
 
-.selected-option:hover{
+.selected-option:hover {
     transform: scale(1.08);
     background-color: #239700;
 }
 
 .box {
     height: 135px;
-    width: 300px;
+    width: 400px;
     border-radius: 20px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    padding-left: 30px;
+    padding-top: 20px;
 }
 
-.box:hover {
-    transform: scale(1.08);
-}
 
 .box:nth-child(1) {
     background-color: var(--primary-color);
@@ -273,11 +270,12 @@ header {
     border-bottom: 2px solid #239700;
 }
 
-.recent-Articles {
+.recent-alocacoes {
     font-size: 30px;
     font-weight: 600;
     color: #239700;
 }
+
 
 .view {
     height: 35px;
@@ -290,19 +288,34 @@ header {
     cursor: pointer;
 }
 
-th{
+th {
     padding-top: 20px;
     padding-left: 55px;
     font-weight: bold;
     color: #239700;
 }
 
-td{
+td {
     padding-left: 55px;
     border-radius: 10px;
 }
 
-.hidden{
+.modelo {
     visibility: hidden;
     display: none;
 }
+
+#nome-motorista-input,
+#cpf-motorista-input,
+#cnh-motorista-input,
+#placa-veiculo-input,
+#modelo-veiculo-input,
+#marca-veiculo-input,
+#tipo-veiculo-input {
+    width: 250px;
+}
+
+/* button{
+    padding: 10px;
+    margin: 10px;
+} */
