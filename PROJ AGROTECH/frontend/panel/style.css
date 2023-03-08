@@ -124,6 +124,12 @@ header {
     background-color: #9e9e9eb2;
 }
 
+.main-alocacoes > form{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .box-container {
     display: flex;
     justify-content: space-evenly;
@@ -304,6 +310,30 @@ td {
     visibility: hidden;
     display: none;
 }
+
+
+#alterar-ordem-cresc{
+    visibility: hidden;
+}
+
+#alterar-ordem-cresc > img{
+    height: 15px;
+}
+
+
+#alterar-ordem-desc > img{
+    transform: rotate(180deg);
+    height: 15px;
+}
+
+#alterar-ordem-cresc, #alterar-ordem-desc{
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+
 
 #nome-motorista-input,
 #cpf-motorista-input,

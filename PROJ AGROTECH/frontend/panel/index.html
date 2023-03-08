@@ -77,27 +77,27 @@
                 <div class="box box1">
                     <div class="text">
                         <h2 class="topic-heading" id="n-veic"></h2>
-                        <h2 class="topic">Veículos</h2>
+                        <h2 class="topic">Veículos no total</h2>
                     </div>
                 </div>
 
                 <div class="box box2">
                     <div class="text">
-                        <h2 class="topic-heading" id="n-veic-manutencoes">N VEIC</h2>
+                        <h2 class="topic-heading" id="n-veic-manutencoes"></h2>
                         <h2 class="topic">Veículos em Manutenção</h2>
                     </div>
                 </div>
 
                 <div class="box box3">
                     <div class="text">
-                        <h2 class="topic-heading" id="veic-uso">N VEIC</h2>
+                        <h2 class="topic-heading" id="veic-uso"></h2>
                         <h2 class="topic">Veículos em Uso</h2>
                     </div>
                 </div>
 
                 <div class="box box5">
                     <div class="text">
-                        <h2 class="topic-heading" id="n-motoristas">N MOTOR</h2>
+                        <h2 class="topic-heading" id="n-motoristas"></h2>
                         <h2 class="topic">Motoristas</h2>
                     </div>
                 </div>
@@ -143,7 +143,9 @@
                 <input id="id-motorista-alocacao" placeholder="Digite o ID do motorista" type="text">
                 <input id="id-veiculo-alocacao" placeholder="Digite o ID do veículo" type="text">
                 <input id="desc-alocacao" placeholder="Digite a descrição" type="text">
-                <button onclick="cadastrarAlocacao()">Adicionar Alocacoes</button>
+                <button onclick="cadastrarAlocacao()">Adicionar Alocações</button>
+                <button id="alterar-ordem-desc"><img src="https://cdn-icons-png.flaticon.com/512/3648/3648170.png"></button>
+                <button id="alterar-ordem-cresc"><img src="https://cdn-icons-png.flaticon.com/512/3648/3648170.png"></button>
             </form>
             <table class="ver-alocacoes">
 
@@ -162,8 +164,10 @@
                         <td id="veiculo"></td>
                         <td id="data-saida"></td>
                         <td id="data-retorno"></td>
-                        <td id="descricao-alocacao"></td>
-                        <td><button>Editar</button></td>
+                        <td><input id="descricao-alocacao" disabled></td>
+                        <td><button id="editar" onclick="editarAlocacao(this.parentNode.parentNode)">Editar</button></td>
+                        <td><button id="finalizar" onclick="finalizarAlocacao(this.parentNode.parentNode)">Finalizar</button></td>
+                        <td><button id="salvar" class="modelo" onclick="salvarAlocacao(this.parentNode.parentNode)">Salvar</button></td>
                     </tr>
                 </thead>
 
@@ -198,7 +202,8 @@
                         <td id="data-fim-manutencao"></td>
                         <td id="custo-manutencao"></td>
                         <td id="descricao-manutencao"></td>
-                        <td><button>Finalizar manutenção</button></td>
+                        <td><button id="editar">Editar</button></td>
+                        <td><button id="finalizar">Finalizar manutenção</button></td>
                     </tr>
                 </thead>
 
@@ -264,6 +269,7 @@
                         <td id="tipo-veiculo"></td>
                         <td id="disponivel-veiculo"></td>
                         <td><button>Editar</button></td>
+                        
                     </tr>
                 </thead>
 

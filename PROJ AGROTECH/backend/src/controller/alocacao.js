@@ -23,7 +23,7 @@ const read = async(req, res) => {
 const update = async(req, res) => {
     const alocacao = await prisma.alocacao.update({
         where: {
-            id: Number(req.body.id)
+            id_alocacao: Number(req.body.id_alocacao)
         },
         data: req.body
     })

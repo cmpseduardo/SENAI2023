@@ -1,3 +1,6 @@
+const buttonOrdemDesc = document.querySelector("#alterar-ordem-desc")
+const buttonOrdemCresc = document.querySelector("#alterar-ordem-cresc")
+
 // PAINEL
 function contar() {
     function veiculos() {
@@ -152,11 +155,14 @@ function carregarAlocacoes() {
                 let novoItem = itemAlocacao.cloneNode(true)
                 novoItem.classList.remove("modelo")
 
+                novoItem.id = alocacao.id_alocacao
+
+
                 idAlocacao = novoItem.querySelector("#id-alocacao")
                 motorista = novoItem.querySelector("#motorista")
                 veiculo = novoItem.querySelector("#veiculo")
                 dataSaida = novoItem.querySelector("#data-saida")
-                dataReentorno = novoItem.querySelector("#data-retorno")
+                dataRetorno = novoItem.querySelector("#data-retorno")
                 descricao = novoItem.querySelector("#descricao-alocacao")
                 console.log(novoItem)
 
@@ -168,9 +174,10 @@ function carregarAlocacoes() {
                     dataRetorno.innerHTML = ""
                 } else {
                     dataRetorno.innerHTML = Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_retorno));
+                    novoItem.querySelector("#editar").remove()
+                    novoItem.querySelector("#finalizar").remove()
                 }
-                descricao.innerHTML = alocacao.desc;
-
+                descricao.value = alocacao.desc;
 
                 document.querySelector(".tbody-alocacoes").appendChild(novoItem);
             })
@@ -437,5 +444,131 @@ function cadastrarAlocacao() {
             } else {
                 alert("Ocorreu algum erro");
             }
+        })
+}
+
+function finalizarAlocacao(e) {
+    const dataAtual = new Date()
+    const dataFormatada = dataAtual.toISOString()
+
+    console.log(dataFormatada)
+    const data = {
+        "id_alocacao": Number(e.id),
+        "data_retorno": dataFormatada
+    }
+
+    fetch(`http://localhost:3000/alocacao`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(updatedUser => {
+            carregarAlocacoes()
+            alert('Alocação atualizada com sucesso!', updatedUser)}
+            )
+        .catch(error => console.error('Erro ao atualizar alocação.', error))
+
+}
+
+
+// OPÇÕES
+function editarAlocacao(e) {
+    e.querySelector("#descricao-alocacao").disabled = false
+    e.querySelector("#editar").classList.add("modelo")
+    e.querySelector("#salvar").classList.remove("modelo")
+    e.querySelector("#finalizar").classList.add("modelo")
+}
+
+function salvarAlocacao(e) {
+    const data = {
+        "id_alocacao": Number(e.id),
+        "desc": e.querySelector("#descricao-alocacao").value
+    }
+
+    console.log(document.querySelector("#descricao-alocacao").value)
+    e.querySelector("#descricao-alocacao").disabled = true
+
+    fetch(`http://localhost:3000/alocacao`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(updatedUser => {
+            carregarAlocacoes()
+            alert('Alocação atualizada com sucesso!', updatedUser)}
+            )
+        .catch(error => console.error('Erro ao atualizar alocação.', error))
+    }
+
+buttonOrdemDesc.addEventListener('click', (e)=> {
+    e.preventDefault()
+    alterarOrdem()
+    buttonOrdemDesc.classList.add("modelo")
+    buttonOrdemCresc.style.visibility = "visible"
+})
+
+buttonOrdemCresc.addEventListener('click', (e)=> {
+    e.preventDefault()
+    carregarAlocacoes()
+    buttonOrdemDesc.classList.remove("modelo")
+    buttonOrdemCresc.style.visibility = "hidden"
+})
+
+function alterarOrdem(){
+    document.querySelector(".main-home").classList.add("modelo")
+    document.querySelector(".main-manutencoes").classList.add("modelo")
+    document.querySelector(".main-motoristas").classList.add("modelo")
+    document.querySelector(".main-veiculos").classList.add("modelo")
+
+    document.querySelector(".main-alocacoes").classList.remove("modelo")
+
+    document.querySelector(".option1").classList.remove("selected-option")
+    document.querySelector(".option2").classList.add("selected-option")
+    document.querySelector(".option3").classList.remove("selected-option")
+    document.querySelector(".option4").classList.remove("selected-option")
+    document.querySelector(".option5").classList.remove("selected-option")
+
+    let itemAlocacao = document.querySelector(".informacoes-alocacao")
+
+    fetch("http://localhost:3000/alocacao")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            data.sort((a, b) => b.id_alocacao - a.id_alocacao)
+            document.querySelector(".tbody-alocacoes").innerHTML = ""
+            data.forEach(alocacao => {
+
+                let novoItem = itemAlocacao.cloneNode(true)
+                novoItem.classList.remove("modelo")
+
+                novoItem.id = alocacao.id_alocacao
+
+
+                idAlocacao = novoItem.querySelector("#id-alocacao")
+                motorista = novoItem.querySelector("#motorista")
+                veiculo = novoItem.querySelector("#veiculo")
+                dataSaida = novoItem.querySelector("#data-saida")
+                dataRetorno = novoItem.querySelector("#data-retorno")
+                descricao = novoItem.querySelector("#descricao-alocacao")
+                console.log(novoItem)
+
+                idAlocacao.innerHTML = alocacao.id_alocacao;
+                motorista.innerHTML = alocacao.id_motorista;
+                veiculo.innerHTML = alocacao.id_veiculo;
+                dataSaida.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_saida));
+                if (alocacao.data_retorno == null) {
+                    dataRetorno.innerHTML = ""
+                } else {
+                    dataRetorno.innerHTML = Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_retorno));
+                    novoItem.querySelector("#editar").remove()
+                    novoItem.querySelector("#finalizar").remove()
+                }
+                descricao.value = alocacao.desc;
+
+                document.querySelector(".tbody-alocacoes").appendChild(novoItem);
+            })
         })
 }
