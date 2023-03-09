@@ -23,6 +23,7 @@ model Motorista {
   nome String
   cpf String @unique
   cnh String @unique
+  disponivel Boolean @default(true)
   alocacao Alocacao[]
 }
 

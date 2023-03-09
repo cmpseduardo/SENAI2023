@@ -3,9 +3,9 @@ const prisma = new PrismaClient()
 
 const create = async (req, res) => {
     const info = req.body
-
+    console.log(info)
     const motorista = await prisma.motorista.create({
-        data:info
+        data: info
     })
 
     res.status(200).json(motorista).end()

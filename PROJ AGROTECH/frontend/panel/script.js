@@ -92,10 +92,10 @@ function alocacoesRecentes() {
                 dataSaida = novoItem.querySelector("#data-saida-painel")
                 dataRetorno = novoItem.querySelector("#data-retorno-painel")
                 descricao = novoItem.querySelector("#descricao-painel")
-                console.log(novoItem)
+                // console.log(novoItem)
 
                 idAlocacao.innerHTML = item.id_alocacao;
-                motorista.innerHTML = item.id_motorista;
+                motorista.innerHTML = item.motorista.nome;
                 veiculo.innerHTML = item.id_veiculo;
                 dataSaida.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(item.data_saida));
                 if (item.data_retorno == null) {
@@ -126,6 +126,69 @@ function carregarPainel() {
     document.querySelector(".option3").classList.remove("selected-option")
     document.querySelector(".option4").classList.remove("selected-option")
     document.querySelector(".option5").classList.remove("selected-option")
+}
+
+function carregarOptionsAlocacao() {
+    let itemOptionMotorista = document.querySelector("#option-motorista-modelo")
+
+    fetch("http://localhost:3000/motorista")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            data.forEach(motorista => {
+
+                let novoItem = itemOptionMotorista.cloneNode(true)
+                novoItem.classList.remove("modelo")
+
+                // console.log(novoItem)
+
+
+                novoItem.value = motorista.id_motorista
+                novoItem.innerHTML = `${motorista.id_motorista} - ${motorista.nome}`
+                // novoItem.id = "o" + motorista.id_motorista
+
+
+                document.querySelector("#select-motorista").appendChild(novoItem)
+                // console.log(novoItem)
+                if (motorista.disponivel) {
+                    novoItem.disabled = false
+                } else {
+                    novoItem.disabled = true
+                }
+            })
+        })
+
+    let itemOptionVeiculo = document.querySelector("#option-veiculo-modelo")
+
+    fetch("http://localhost:3000/veiculo")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            data.forEach(veiculo => {
+
+                let novoItem = itemOptionVeiculo.cloneNode(true)
+                novoItem.classList.remove("modelo")
+
+                // console.log(novoItem)
+
+
+                novoItem.value = veiculo.id_veiculo
+                novoItem.innerHTML = `${veiculo.placa} - ${veiculo.modelo} - ${veiculo.tipo} - ${veiculo.marca}`
+                // novoItem.id = "o" + motorista.id_motorista
+
+
+                document.querySelector("#select-veiculo").appendChild(novoItem)
+                // console.log(novoItem)
+                if (veiculo.disponivel) {
+                    novoItem.disabled = false
+                } else {
+                    novoItem.disabled = true
+                }
+
+            })
+        })
 }
 
 function carregarAlocacoes() {
@@ -160,15 +223,21 @@ function carregarAlocacoes() {
 
                 idAlocacao = novoItem.querySelector("#id-alocacao")
                 motorista = novoItem.querySelector("#motorista")
+                idMotorista = novoItem.querySelector("#id-motorista")
+                idVeiculo = novoItem.querySelector("#id-veiculo")
                 veiculo = novoItem.querySelector("#veiculo")
                 dataSaida = novoItem.querySelector("#data-saida")
                 dataRetorno = novoItem.querySelector("#data-retorno")
                 descricao = novoItem.querySelector("#descricao-alocacao")
-                console.log(novoItem)
+                // console.log(novoItem)
 
                 idAlocacao.innerHTML = alocacao.id_alocacao;
-                motorista.innerHTML = alocacao.id_motorista;
-                veiculo.innerHTML = alocacao.id_veiculo;
+                motorista.innerHTML = alocacao.motorista.nome;
+                idMotorista.innerHTML = alocacao.motorista.id_motorista;
+                idVeiculo.innerHTML = alocacao.veiculo.id_veiculo;
+                // console.log(motorista)
+                veiculo.innerHTML = `${alocacao.veiculo.placa} - ${alocacao.veiculo.modelo} - ${alocacao.veiculo.tipo} - ${alocacao.veiculo.marca}`;
+
                 dataSaida.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_saida));
                 if (alocacao.data_retorno == null) {
                     dataRetorno.innerHTML = ""
@@ -207,7 +276,7 @@ function carregarManutencoes() {
         .then((data) => {
             document.querySelector(".tbody-manutencoes").innerHTML = ""
             data.forEach(manutencao => {
-                console.log(document.querySelector(".tbody-manutencoes"))
+                // console.log(document.querySelector(".tbody-manutencoes"))
                 let novoItem = itemManutencao.cloneNode(true)
                 novoItem.classList.remove("modelo")
 
@@ -218,7 +287,7 @@ function carregarManutencoes() {
                 custoManutencao = novoItem.querySelector("#custo-manutencao")
                 descricao = novoItem.querySelector("#descricao-manutencao")
 
-                console.log(novoItem)
+                // console.log(novoItem)
 
                 idManutencao.innerHTML = manutencao.id_manutencao
                 idVeiculo.innerHTML = manutencao.id_veiculo
@@ -260,7 +329,7 @@ function carregarMotoristas() {
         .then((data) => {
             document.querySelector(".tbody-motoristas").innerHTML = ""
             data.forEach(motorista => {
-                console.log(document.querySelector(".tbody-motoristas"))
+                // console.log(document.querySelector(".tbody-motoristas"))
                 let novoItem = itemMotorista.cloneNode(true)
                 novoItem.classList.remove("modelo")
 
@@ -269,7 +338,7 @@ function carregarMotoristas() {
                 cpfMotorista = novoItem.querySelector("#cpf-motorista")
                 cnhMotorista = novoItem.querySelector("#cnh-motorista")
 
-                console.log(novoItem)
+                // console.log(novoItem)
 
                 idMotorista.innerHTML = motorista.id_motorista;
                 nomeMotorista.innerHTML = motorista.nome;
@@ -304,7 +373,7 @@ function carregarVeiculos() {
         .then((data) => {
             document.querySelector(".tbody-veiculos").innerHTML = ""
             data.forEach(veiculo => {
-                console.log(document.querySelector(".tbody-veiculos"))
+                // console.log(document.querySelector(".tbody-veiculos"))
                 let novoItem = itemVeiculo.cloneNode(true)
                 novoItem.classList.remove("modelo")
 
@@ -315,7 +384,7 @@ function carregarVeiculos() {
                 tipoVeiculo = novoItem.querySelector("#tipo-veiculo")
                 disponivelVeiculo = novoItem.querySelector("#disponivel-veiculo")
 
-                console.log(novoItem)
+                // console.log(novoItem)
 
                 idVeiculo.innerHTML = veiculo.id_veiculo;
                 placaVeiculo.innerHTML = veiculo.placa;
@@ -329,7 +398,7 @@ function carregarVeiculos() {
                     disponivelVeiculo.innerHTML = "INDISPONÍVEL"
                 }
 
-                console.log(novoItem)
+                // console.log(novoItem)
 
                 document.querySelector(".tbody-veiculos").appendChild(novoItem);
             })
@@ -356,7 +425,7 @@ function cadastrarManutencoes() {
     })
         .then(resp => { return resp.json() })
         .then(data => {
-            console.log(data)
+            // console.log(data)
             if (data.id_manutencao != undefined) {
                 alert("Cadastrado com sucesso!")
             } else {
@@ -367,7 +436,7 @@ function cadastrarManutencoes() {
 
 
 function cadastrarMotorista() {
-    let data = JSON.stringify({
+    const data = JSON.stringify({
         nome: document.querySelector("#nome-motorista-input").value,
         cpf: document.querySelector("#cpf-motorista-input").value,
         cnh: document.querySelector("#cnh-motorista-input").value,
@@ -383,7 +452,7 @@ function cadastrarMotorista() {
     })
         .then(resp => { return resp.json() })
         .then(data => {
-            console.log(data)
+            // console.log(data)
             if (data.id_motorista != undefined) {
                 alert("Cadastrado com sucesso!")
             } else {
@@ -411,7 +480,7 @@ function cadastrarVeiculo() {
     })
         .then(resp => { return resp.json() })
         .then(data => {
-            console.log(data)
+            // console.log(data)
             if (data.id_veiculo != undefined) {
                 alert("Cadastrado com sucesso!")
             } else {
@@ -423,8 +492,8 @@ function cadastrarVeiculo() {
 
 function cadastrarAlocacao() {
     let data = JSON.stringify({
-        id_motorista: Number(document.querySelector("#id-motorista-alocacao").value),
-        id_veiculo: Number(document.querySelector("#id-veiculo-alocacao").value),
+        id_motorista: Number(document.querySelector("#select-motorista").value),
+        id_veiculo: Number(document.querySelector("#select-veiculo").value),
         desc: document.querySelector("#desc-alocacao").value
     });
 
@@ -438,7 +507,7 @@ function cadastrarAlocacao() {
     })
         .then(resp => { return resp.json() })
         .then(data => {
-            console.log(data)
+            // console.log(data)
             if (data.id_alocacao != undefined) {
                 alert("Cadastrado com sucesso!")
             } else {
@@ -451,8 +520,11 @@ function finalizarAlocacao(e) {
     const dataAtual = new Date()
     const dataFormatada = dataAtual.toISOString()
 
-    console.log(dataFormatada)
+    // console.log(dataFormatada)
+
     const data = {
+        "id_motorista": Number(e.querySelector("#id-motorista").innerHTML),
+        "id_veiculo": Number(e.querySelector("#id-veiculo").innerHTML),
         "id_alocacao": Number(e.id),
         "data_retorno": dataFormatada
     }
@@ -464,9 +536,10 @@ function finalizarAlocacao(e) {
     })
         .then(response => response.json())
         .then(updatedUser => {
-            carregarAlocacoes()
-            alert('Alocação atualizada com sucesso!', updatedUser)}
-            )
+            window.location.reload()
+            alert('Alocação atualizada com sucesso!', updatedUser)
+        }
+        )
         .catch(error => console.error('Erro ao atualizar alocação.', error))
 
 }
@@ -482,11 +555,11 @@ function editarAlocacao(e) {
 
 function salvarAlocacao(e) {
     const data = {
-        "id_alocacao": Number(e.id),
+        "id_alocacao": Number(e.id_alocacao),
         "desc": e.querySelector("#descricao-alocacao").value
     }
 
-    console.log(document.querySelector("#descricao-alocacao").value)
+    // console.log(document.querySelector("#descricao-alocacao").value)
     e.querySelector("#descricao-alocacao").disabled = true
 
     fetch(`http://localhost:3000/alocacao`, {
@@ -496,27 +569,29 @@ function salvarAlocacao(e) {
     })
         .then(response => response.json())
         .then(updatedUser => {
-            carregarAlocacoes()
-            alert('Alocação atualizada com sucesso!', updatedUser)}
-            )
-        .catch(error => console.error('Erro ao atualizar alocação.', error))
-    }
 
-buttonOrdemDesc.addEventListener('click', (e)=> {
+            carregarAlocacoes()
+            alert('Alocação atualizada com sucesso!', updatedUser)
+        }
+        )
+        .catch(error => console.error('Erro ao atualizar alocação.', error))
+}
+
+buttonOrdemDesc.addEventListener('click', (e) => {
     e.preventDefault()
     alterarOrdem()
     buttonOrdemDesc.classList.add("modelo")
     buttonOrdemCresc.style.visibility = "visible"
 })
 
-buttonOrdemCresc.addEventListener('click', (e)=> {
+buttonOrdemCresc.addEventListener('click', (e) => {
     e.preventDefault()
     carregarAlocacoes()
     buttonOrdemDesc.classList.remove("modelo")
     buttonOrdemCresc.style.visibility = "hidden"
 })
 
-function alterarOrdem(){
+function alterarOrdem() {
     document.querySelector(".main-home").classList.add("modelo")
     document.querySelector(".main-manutencoes").classList.add("modelo")
     document.querySelector(".main-motoristas").classList.add("modelo")
@@ -553,11 +628,11 @@ function alterarOrdem(){
                 dataSaida = novoItem.querySelector("#data-saida")
                 dataRetorno = novoItem.querySelector("#data-retorno")
                 descricao = novoItem.querySelector("#descricao-alocacao")
-                console.log(novoItem)
+                // console.log(novoItem)
 
                 idAlocacao.innerHTML = alocacao.id_alocacao;
-                motorista.innerHTML = alocacao.id_motorista;
-                veiculo.innerHTML = alocacao.id_veiculo;
+                motorista.innerHTML = alocacao.motorista.nome;
+                veiculo.innerHTML = alocacao.veiculo.placa;
                 dataSaida.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_saida));
                 if (alocacao.data_retorno == null) {
                     dataRetorno.innerHTML = ""

@@ -15,6 +15,7 @@ CREATE TABLE `Motorista` (
     `nome` VARCHAR(191) NOT NULL,
     `cpf` VARCHAR(191) NOT NULL,
     `cnh` VARCHAR(191) NOT NULL,
+    `disponivel` BOOLEAN NOT NULL DEFAULT true,
 
     UNIQUE INDEX `Motorista_cpf_key`(`cpf`),
     UNIQUE INDEX `Motorista_cnh_key`(`cnh`),

@@ -10,7 +10,7 @@
     <script src="./script.js" defer></script>
 </head>
 
-<body onload="contar(), alocacoesRecentes()">
+<body onload="contar(), alocacoesRecentes(), carregarOptionsAlocacao()">
     <header>
 
         <div class="logosec">
@@ -140,8 +140,14 @@
 
         <div class="main-alocacoes modelo pag">
             <form>
-                <input id="id-motorista-alocacao" placeholder="Digite o ID do motorista" type="text">
-                <input id="id-veiculo-alocacao" placeholder="Digite o ID do veículo" type="text">
+                <select id="select-motorista">
+                    <option id="option-motorista-modelo" class="modelo" value=""></option>
+                </select>
+
+                <select id="select-veiculo">
+                    <option id="option-veiculo-modelo" class="modelo" value=""></option>
+                </select>
+
                 <input id="desc-alocacao" placeholder="Digite a descrição" type="text">
                 <button onclick="cadastrarAlocacao()">Adicionar Alocações</button>
                 <button id="alterar-ordem-desc"><img src="https://cdn-icons-png.flaticon.com/512/3648/3648170.png"></button>
@@ -151,15 +157,17 @@
 
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Nº ALOCAÇÃO</th>
                         <th>MOTORISTA</th>
-                        <th>VEÍCULO</th>
+                        <th>PLACA VEÍCULO</th>
                         <th>DATA SAÍDA</th>
                         <th>DATA RETORNO</th>
                         <th>DESCRIÇÃO</th>
                     </tr>
                     <tr class="informacoes-alocacao modelo">
                         <td id="id-alocacao"></td>
+                        <td class="modelo" id="id-motorista"></td>
+                        <td class="modelo" id="id-veiculo"></td>
                         <td id="motorista"></td>
                         <td id="veiculo"></td>
                         <td id="data-saida"></td>
