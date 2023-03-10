@@ -90,6 +90,16 @@ const update = async (req, res) => {
     }
 }
 
+const updateDesc = async (req, res) => {
+    const alocacao = await prisma.alocacao.update({
+        where: {
+            id_alocacao: Number(req.body.id_alocacao)
+        },
+        data: req.body
+    })
+
+    res.status(200).json(alocacao).end()
+}
 
 const remove = async (req, res) => {
     const alocacao = await prisma.alocacao.delete({
@@ -106,5 +116,6 @@ module.exports = {
     create,
     read,
     update,
-    remove
+    remove,
+    updateDesc
 }

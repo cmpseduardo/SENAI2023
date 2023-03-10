@@ -96,7 +96,7 @@ function alocacoesRecentes() {
 
                 idAlocacao.innerHTML = item.id_alocacao;
                 motorista.innerHTML = item.motorista.nome;
-                veiculo.innerHTML = item.id_veiculo;
+                veiculo.innerHTML = item.veiculo.placa;
                 dataSaida.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(item.data_saida));
                 if (item.data_retorno == null) {
                     dataRetorno.innerHTML = ""
@@ -187,6 +187,38 @@ function carregarOptionsAlocacao() {
                     novoItem.disabled = true
                 }
 
+            })
+        })
+}
+
+function carregarOptionsManutencoes() {
+    let itemOptionVeiculo = document.querySelector("#option-veiculo-manutencao-modelo")
+
+    fetch("http://localhost:3000/veiculo")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            data.forEach(motorista => {
+
+                let novoItem = itemOptionVeiculo.cloneNode(true)
+                novoItem.classList.remove("modelo")
+
+                // console.log(novoItem)
+
+
+                novoItem.value = motorista.id_veiculo
+                novoItem.innerHTML = `${motorista.id_veiculo} - ${motorista.placa} - ${motorista.tipo}`
+                // novoItem.id = "o" + motorista.id_motorista
+
+
+                document.querySelector("#select-placa-manutencao").appendChild(novoItem)
+                // console.log(novoItem)
+                if (motorista.disponivel) {
+                    novoItem.disabled = false
+                } else {
+                    novoItem.disabled = true
+                }
             })
         })
 }
@@ -340,10 +372,10 @@ function carregarMotoristas() {
 
                 // console.log(novoItem)
 
-                idMotorista.innerHTML = motorista.id_motorista;
-                nomeMotorista.innerHTML = motorista.nome;
-                cpfMotorista.innerHTML = motorista.cpf;
-                cnhMotorista.innerHTML = motorista.cnh;
+                idMotorista.value = motorista.id_motorista;
+                nomeMotorista.value = motorista.nome;
+                cpfMotorista.value = motorista.cpf;
+                cnhMotorista.value = motorista.cnh;
 
                 document.querySelector(".tbody-motoristas").appendChild(novoItem);
             })
@@ -409,10 +441,10 @@ function carregarVeiculos() {
 
 // FETCH POST
 function cadastrarManutencoes() {
-    let data = JSON.stringify({
-        id_veiculo: Number(document.querySelector("#id-veiculo-manutencao-input").value),
-        custo: Number(document.querySelector("#custo-manutencao-input").value),
-        desc: document.querySelector("#descricao-manutencao-input").value
+    const data = JSON.stringify({
+        "id_veiculo": Number(document.querySelector("#select-placa-manutencao").value),
+        "custo": Number(document.querySelector("#custo-manutencao-input").value),
+        "desc": document.querySelector("#descricao-manutencao-input").value
     });
 
 
@@ -432,6 +464,27 @@ function cadastrarManutencoes() {
                 alert("Ocorreu um erro");
             }
         })
+
+    const alteracao = {
+        "id_veiculo": Number(document.querySelector("#select-placa-manutencao").value),
+        "disponivel": false
+    }
+
+    // for (let i = 0; i < 10; i) {
+    //     console.log(alteracao)
+    // }
+
+    fetch(`http://localhost:3000/veiculo`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(alteracao),
+    })
+        .then(response => response.json())
+        .then(updatedUser => {
+            alert('Manutenção cadastrada com sucesso!', updatedUser)
+        }
+        )
+        .catch(error => console.error('Erro ao atualizar alocação.', error))
 }
 
 
@@ -520,7 +573,6 @@ function finalizarAlocacao(e) {
     const dataAtual = new Date()
     const dataFormatada = dataAtual.toISOString()
 
-    // console.log(dataFormatada)
 
     const data = {
         "id_motorista": Number(e.querySelector("#id-motorista").innerHTML),
@@ -555,14 +607,15 @@ function editarAlocacao(e) {
 
 function salvarAlocacao(e) {
     const data = {
-        "id_alocacao": Number(e.id_alocacao),
+        "id_alocacao": Number(e.querySelector("#id-alocacao").innerHTML),
         "desc": e.querySelector("#descricao-alocacao").value
     }
 
+    console.log(data)
     // console.log(document.querySelector("#descricao-alocacao").value)
     e.querySelector("#descricao-alocacao").disabled = true
 
-    fetch(`http://localhost:3000/alocacao`, {
+    fetch(`http://localhost:3000/alocacao/desc`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -632,7 +685,7 @@ function alterarOrdem() {
 
                 idAlocacao.innerHTML = alocacao.id_alocacao;
                 motorista.innerHTML = alocacao.motorista.nome;
-                veiculo.innerHTML = alocacao.veiculo.placa;
+                veiculo.innerHTML = `${alocacao.veiculo.placa} - ${alocacao.veiculo.modelo} - ${alocacao.veiculo.tipo} - ${alocacao.veiculo.marca}`;
                 dataSaida.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_saida));
                 if (alocacao.data_retorno == null) {
                     dataRetorno.innerHTML = ""
@@ -646,4 +699,13 @@ function alterarOrdem() {
                 document.querySelector(".tbody-alocacoes").appendChild(novoItem);
             })
         })
+}
+
+function editarMotorista(e) {
+    e.querySelector("#nome-motorista").disabled = false
+    e.querySelector("#cpf-motorista").disabled = false
+    e.querySelector("#cnh-motorista").disabled = false
+    e.querySelector("#editar").classList.add("modelo")
+    e.querySelector("#salvar").classList.remove("modelo")
+    e.querySelector("#finalizar").classList.add("modelo")
 }

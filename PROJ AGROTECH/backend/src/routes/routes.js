@@ -29,6 +29,7 @@ router.put('/motorista', Motorista.update)
 router.put('/manutencao', Manutencao.update)
 router.put('/veiculo', Veiculo.update)
 router.put('/alocacao', Alocacao.update)
+router.put('/alocacao/desc', Alocacao.updateDesc)
 router.put('/usuario', Usuario.update)
 
 module.exports = router;

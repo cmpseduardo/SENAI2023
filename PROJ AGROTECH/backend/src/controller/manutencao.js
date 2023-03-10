@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
-const create = async(req, res) => {
+const create = async (req, res) => {
     const info = req.body
     console.log(info)
     const manutencao = await prisma.manutencao.create({
@@ -11,13 +11,13 @@ const create = async(req, res) => {
     res.status(200).json(manutencao).end()
 }
 
-const read = async(req, res) => {
+const read = async (req, res) => {
     const manutencao = await prisma.manutencao.findMany()
 
     res.status(200).json(manutencao).end()
 }
 
-const update = async(req, res) => {
+const update = async (req, res) => {
     const manutencao = await prisma.manutencao.update({
         where: {
             id: Number(req.body.id)
@@ -28,7 +28,7 @@ const update = async(req, res) => {
     res.status(200).json(manutencao).end()
 }
 
-const remove = async(req, res) => {
+const remove = async (req, res) => {
     const manutencao = await prisma.manutencao.delete({
         where: {
             id: Number(req.body.id)

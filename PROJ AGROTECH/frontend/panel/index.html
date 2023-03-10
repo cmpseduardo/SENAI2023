@@ -10,7 +10,7 @@
     <script src="./script.js" defer></script>
 </head>
 
-<body onload="contar(), alocacoesRecentes(), carregarOptionsAlocacao()">
+<body onload="contar(), alocacoesRecentes(), carregarOptionsAlocacao(), carregarOptionsManutencoes()">
     <header>
 
         <div class="logosec">
@@ -31,13 +31,13 @@
             <nav class="nav">
                 <div class="nav-upper-options">
                     <div class="nav-option option1 selected-option" onclick="carregarPainel()">
-                        <img src="https://cdn-icons-png.flaticon.com/128/3405/3405258.png" class="nav-img"
-                            alt="painel">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3405/3405258.png" class="nav-img" alt="painel">
                         <h3> Painel</h3>
                     </div>
 
                     <div class="nav-option option2" onclick="carregarAlocacoes()">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1069/1069138.png" class="nav-img" alt="alocacoes">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1069/1069138.png" class="nav-img"
+                            alt="alocacoes">
                         <h3> Alocações</h3>
                     </div>
 
@@ -114,12 +114,12 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>ID MOTORISTA</th>
-                            <th>ID VEICULO</th>
+                            <th>MOTORISTA</th>
+                            <th>PLACA VEÍCULO</th>
                             <th>DATA SAIDA</th>
                             <th>DATA RETORNO</th>
                             <th>DESCRIÇÃO</th>
-    
+
                         </tr>
                         <tr class="informacoes-alocacao-painel modelo">
                             <td id="id-alocacao-painel"></td>
@@ -128,10 +128,10 @@
                             <td id="data-saida-painel"></td>
                             <td id="data-retorno-painel"></td>
                             <td id="descricao-painel"></td>
-                            
+
                         </tr>
                     </thead>
-    
+
                     <tbody class="tbody-alocacoes-painel">
                     </tbody>
                 </table>
@@ -150,8 +150,10 @@
 
                 <input id="desc-alocacao" placeholder="Digite a descrição" type="text">
                 <button onclick="cadastrarAlocacao()">Adicionar Alocações</button>
-                <button id="alterar-ordem-desc"><img src="https://cdn-icons-png.flaticon.com/512/3648/3648170.png"></button>
-                <button id="alterar-ordem-cresc"><img src="https://cdn-icons-png.flaticon.com/512/3648/3648170.png"></button>
+                <button id="alterar-ordem-desc"><img
+                        src="https://cdn-icons-png.flaticon.com/512/3648/3648170.png"></button>
+                <button id="alterar-ordem-cresc"><img
+                        src="https://cdn-icons-png.flaticon.com/512/3648/3648170.png"></button>
             </form>
             <table class="ver-alocacoes">
 
@@ -173,9 +175,12 @@
                         <td id="data-saida"></td>
                         <td id="data-retorno"></td>
                         <td><input id="descricao-alocacao" disabled></td>
-                        <td><button id="editar" onclick="editarAlocacao(this.parentNode.parentNode)">Editar</button></td>
-                        <td><button id="finalizar" onclick="finalizarAlocacao(this.parentNode.parentNode)">Finalizar</button></td>
-                        <td><button id="salvar" class="modelo" onclick="salvarAlocacao(this.parentNode.parentNode)">Salvar</button></td>
+                        <td><button id="editar" onclick="editarAlocacao(this.parentNode.parentNode)">Editar</button>
+                        </td>
+                        <td><button id="finalizar"
+                                onclick="finalizarAlocacao(this.parentNode.parentNode)">Finalizar</button></td>
+                        <td><button id="salvar" class="modelo"
+                                onclick="salvarAlocacao(this.parentNode.parentNode)">Salvar</button></td>
                     </tr>
                 </thead>
 
@@ -186,7 +191,9 @@
 
         <div class="main-manutencoes modelo pag">
             <form>
-                <input id="id-veiculo-manutencao-input" placeholder="Digite o ID do veículo" type="text">
+                <select id="select-placa-manutencao">
+                    <option id="option-veiculo-manutencao-modelo" value=""></option>
+                </select>
                 <input id="custo-manutencao-input" placeholder="Digite o custo" type="number">
                 <input id="descricao-manutencao-input" placeholder="Digite a descrição" type="text">
                 <button onclick="cadastrarManutencoes()">Adicionar Manutenção</button>
@@ -237,11 +244,14 @@
                         <th>CNH</th>
                     </tr>
                     <tr class="informacoes-motorista modelo">
-                        <td id="id-motorista"></td>
-                        <td id="nome-motorista"></td>
-                        <td id="cpf-motorista"></td>
-                        <td id="cnh-motorista"></td>
-                        <td><button>Editar</button></td>
+                        <td><input id="id-motorista" disabled></td>
+                        <td><input id="nome-motorista" disabled></td>
+                        <td><input id="cpf-motorista" disabled></td>
+                        <td><input id="cnh-motorista" disabled></td>
+                        <td><button id="editar" onclick="editarMotorista(this.parentNode.parentNode)">Editar</button>
+                        </td>
+                        <td><button id="salvar" class="modelo"
+                                onclick="salvarAlocacao(this.parentNode.parentNode)">Salvar</button></td>
                     </tr>
                 </thead>
 
@@ -277,7 +287,7 @@
                         <td id="tipo-veiculo"></td>
                         <td id="disponivel-veiculo"></td>
                         <td><button>Editar</button></td>
-                        
+
                     </tr>
                 </thead>
 
