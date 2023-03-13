@@ -20,7 +20,7 @@ const read = async (req, res) => {
 const update = async (req, res) => {
     const motorista = await prisma.motorista.update({
         where: {
-            id: Number(req.body.id)
+            id_motorista: Number(req.body.id_motorista)
         },
         data: req.body
     })
@@ -34,7 +34,7 @@ const remove = async (req, res) => {
             id: Number(req.body.id)
         }
     })
-    res.status(200).json({msg:"Usuário Deletado"}).end()
+    res.status(200).json({ msg: "Usuário Deletado" }).end()
 }
 
 module.exports = {

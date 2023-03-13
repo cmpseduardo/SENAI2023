@@ -33,13 +33,13 @@ header {
     position: fixed;
     z-index: 100;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
 .logo {
-    font-size: 27px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 300;
     color: var(--background-color4);
 }
 
@@ -50,21 +50,6 @@ header {
 .menuicn {
     cursor: pointer;
 }
-
-.logosec {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.searchbar2 {
-    display: none;
-}
-
-.logosec {
-    gap: 60px;
-}
-
 
 .circle {
     height: 7px;
@@ -124,7 +109,7 @@ header {
     background-color: #9e9e9eb2;
 }
 
-.main-alocacoes > form{
+.main-alocacoes>form {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -209,7 +194,7 @@ header {
 
 .box {
     height: 135px;
-    width: 400px;
+    width: 350px;
     border-radius: 20px;
     padding-left: 30px;
     padding-top: 20px;
@@ -312,21 +297,22 @@ td {
 }
 
 
-#alterar-ordem-cresc{
+#alterar-ordem-cresc {
     visibility: hidden;
 }
 
-#alterar-ordem-cresc > img{
+#alterar-ordem-cresc>img {
     height: 15px;
 }
 
 
-#alterar-ordem-desc > img{
+#alterar-ordem-desc>img {
     transform: rotate(180deg);
     height: 15px;
 }
 
-#alterar-ordem-cresc, #alterar-ordem-desc{
+#alterar-ordem-cresc,
+#alterar-ordem-desc {
     background: none;
     border: none;
     cursor: pointer;

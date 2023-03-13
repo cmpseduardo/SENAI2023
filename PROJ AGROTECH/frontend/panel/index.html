@@ -14,15 +14,9 @@
     <header>
 
         <div class="logosec">
-            <div class="logo">Agrotech — A melhor do Agronegócio Brasileiro</div>
+            <div class="logo">A melhor do Agronegócio Brasileiro — Agrotech</div>
         </div>
 
-        <div class="message">
-            <div class="dp">
-                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
-                    class="dpicn" alt="dp">
-            </div>
-        </div>
 
     </header>
 
@@ -67,10 +61,6 @@
             </nav>
         </div>
         <div class="main-home pag">
-
-            <div class="searchbar2">
-                <input type="text" name="" id="" placeholder="Search">
-            </div>
 
             <div class="box-container">
 
@@ -203,7 +193,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>ID VEICULO</th>
+                        <th>PLACA</th>
                         <th>DATA INÍCIO</th>
                         <th>DATA FIM</th>
                         <th>CUSTO</th>
@@ -212,13 +202,18 @@
                     </tr>
                     <tr class="informacoes-manutencao modelo">
                         <td id="id-manutencao"></td>
-                        <td id="id-veiculo"></td>
+                        <td id="id-veiculo" class="modelo"></td>
+                        <td id="placa-veiculo"></td>
                         <td id="data-inicio-manutencao"></td>
                         <td id="data-fim-manutencao"></td>
-                        <td id="custo-manutencao"></td>
-                        <td id="descricao-manutencao"></td>
-                        <td><button id="editar">Editar</button></td>
-                        <td><button id="finalizar">Finalizar manutenção</button></td>
+                        <td><input id="custo-manutencao" disabled></input></td>
+                        <td><input id="descricao-manutencao" disabled></input></td>
+                        <td><button id="editar" onclick="editarManutencao(this.parentNode.parentNode)">Editar</button>
+                        </td>
+                        <td><button id="finalizar" onclick="finalizarManutencao(this.parentNode.parentNode)">Finalizar
+                                Manutenção</button></td>
+                        <td><button id="salvar" class="modelo"
+                                onclick="salvarManutencao(this.parentNode.parentNode)">Salvar</button></td>
                     </tr>
                 </thead>
 
@@ -244,14 +239,14 @@
                         <th>CNH</th>
                     </tr>
                     <tr class="informacoes-motorista modelo">
-                        <td><input id="id-motorista" disabled></td>
+                        <td id="id-motorista"></td>
                         <td><input id="nome-motorista" disabled></td>
-                        <td><input id="cpf-motorista" disabled></td>
-                        <td><input id="cnh-motorista" disabled></td>
+                        <td id="cpf-motorista"></td>
+                        <td id="cnh-motorista"></td>
                         <td><button id="editar" onclick="editarMotorista(this.parentNode.parentNode)">Editar</button>
                         </td>
                         <td><button id="salvar" class="modelo"
-                                onclick="salvarAlocacao(this.parentNode.parentNode)">Salvar</button></td>
+                                onclick="salvarMotorista(this.parentNode.parentNode)">Salvar</button></td>
                     </tr>
                 </thead>
 
@@ -282,9 +277,9 @@
                     <tr class="informacoes-veiculo modelo">
                         <td id="id-veiculo"></td>
                         <td id="placa-veiculo"></td>
-                        <td id="modelo-veiculo"></td>
-                        <td id="marca-veiculo"></td>
-                        <td id="tipo-veiculo"></td>
+                        <td><input id="modelo-veiculo" disabled></td>
+                        <td><input id="marca-veiculo" disabled></td>
+                        <td><input id="tipo-veiculo" disabled></td>
                         <td id="disponivel-veiculo"></td>
                         <td><button>Editar</button></td>
 

@@ -314,6 +314,7 @@ function carregarManutencoes() {
 
                 idManutencao = novoItem.querySelector("#id-manutencao")
                 idVeiculo = novoItem.querySelector("#id-veiculo")
+                placa = novoItem.querySelector("#placa-veiculo")
                 dataInicio = novoItem.querySelector("#data-inicio-manutencao")
                 dataFim = novoItem.querySelector("#data-fim-manutencao")
                 custoManutencao = novoItem.querySelector("#custo-manutencao")
@@ -322,15 +323,17 @@ function carregarManutencoes() {
                 // console.log(novoItem)
 
                 idManutencao.innerHTML = manutencao.id_manutencao
-                idVeiculo.innerHTML = manutencao.id_veiculo
+                idVeiculo.innerHTML = manutencao.veiculo.id_veiculo
+                placa.innerHTML = manutencao.veiculo.placa
                 dataInicio.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(manutencao.data_inicio))
                 if (manutencao.data_fim == null) {
                     dataFim.innerHTML = ""
                 } else {
                     dataFim.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(manutencao.data_fim))
+
                 }
-                custoManutencao.innerHTML = "R$" + manutencao.custo + ",00"
-                descricao.innerHTML = manutencao.desc
+                custoManutencao.value = manutencao.custo
+                descricao.value = manutencao.desc
 
 
                 document.querySelector(".tbody-manutencoes").appendChild(novoItem);
@@ -372,10 +375,10 @@ function carregarMotoristas() {
 
                 // console.log(novoItem)
 
-                idMotorista.value = motorista.id_motorista;
+                idMotorista.innerHTML = motorista.id_motorista;
                 nomeMotorista.value = motorista.nome;
-                cpfMotorista.value = motorista.cpf;
-                cnhMotorista.value = motorista.cnh;
+                cpfMotorista.innerHTML = motorista.cpf;
+                cnhMotorista.innerHTML = motorista.cnh;
 
                 document.querySelector(".tbody-motoristas").appendChild(novoItem);
             })
@@ -420,9 +423,9 @@ function carregarVeiculos() {
 
                 idVeiculo.innerHTML = veiculo.id_veiculo;
                 placaVeiculo.innerHTML = veiculo.placa;
-                modeloVeiculo.innerHTML = veiculo.modelo;
-                marcaVeiculo.innerHTML = veiculo.marca;
-                tipoVeiculo.innerHTML = veiculo.tipo;
+                modeloVeiculo.value = veiculo.modelo;
+                marcaVeiculo.value = veiculo.marca;
+                tipoVeiculo.value = veiculo.tipo;
 
                 if (veiculo.disponivel == true) {
                     disponivelVeiculo.innerHTML = "DISPONÍVEL"
@@ -470,9 +473,6 @@ function cadastrarManutencoes() {
         "disponivel": false
     }
 
-    // for (let i = 0; i < 10; i) {
-    //     console.log(alteracao)
-    // }
 
     fetch(`http://localhost:3000/veiculo`, {
         method: 'PUT',
@@ -605,6 +605,7 @@ function editarAlocacao(e) {
     e.querySelector("#finalizar").classList.add("modelo")
 }
 
+
 function salvarAlocacao(e) {
     const data = {
         "id_alocacao": Number(e.querySelector("#id-alocacao").innerHTML),
@@ -701,11 +702,124 @@ function alterarOrdem() {
         })
 }
 
+function editarManutencao(e) {
+    e.querySelector("#descricao-manutencao").disabled = false
+    e.querySelector("#custo-manutencao").disabled = false
+    e.querySelector("#editar").classList.add("modelo")
+    e.querySelector("#salvar").classList.remove("modelo")
+    e.querySelector("#finalizar").classList.add("modelo")
+}
+
+function salvarManutencao(e) {
+    const data = {
+        "id_manutencao": Number(e.querySelector("#id-manutencao").innerHTML),
+        "custo": e.querySelector("#custo-manutencao").value,
+        "desc": e.querySelector("#descricao-manutencao").value
+    }
+
+    console.log(data)
+    // console.log(document.querySelector("#descricao-alocacao").value)
+
+    e.querySelector("#editar").classList.remove("modelo")
+    e.querySelector("#salvar").classList.add("modelo")
+    e.querySelector("#finalizar").classList.remove("modelo")
+
+    e.querySelector("#descricao-manutencao").disabled = true
+    e.querySelector("#custo-manutencao").disabled = true
+
+    fetch(`http://localhost:3000/manutencao`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(updatedUser => {
+
+            carregarManutencoes()
+            alert('Manutenção atualizada com sucesso!', updatedUser)
+        }
+        )
+        .catch(error => console.error('Erro ao atualizar manutenção.', error))
+}
+
+
+function finalizarManutencao(e) {
+    const dataAtual = new Date()
+    const dataFormatada = dataAtual.toISOString()
+
+
+    const data = {
+        "id_manutencao": Number(e.querySelector("#id-manutencao").innerHTML),
+        "data_fim": dataFormatada
+    }
+
+    fetch(`http://localhost:3000/manutencao`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(updatedUser => {
+            alert('Manutenção atualizada com sucesso!', updatedUser)
+            carregarManutencoes()
+        }
+        )
+        .catch(error => console.error('Erro ao atualizar manutenção.', error))
+
+
+    const alteracao = {
+        "id_veiculo": Number(e.querySelector("#id-veiculo").innerHTML),
+        "disponivel": true
+    }
+
+    fetch(`http://localhost:3000/veiculo`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(alteracao),
+    })
+        .then(response => response.json())
+        .then(updatedUser => {
+            alert('Veículo disponível!', updatedUser)
+            window.reload()
+
+        }
+        )
+        .catch(error => console.error('Erro ao atualizar manutenção.', error))
+
+
+}
+
+
+
 function editarMotorista(e) {
     e.querySelector("#nome-motorista").disabled = false
     e.querySelector("#cpf-motorista").disabled = false
     e.querySelector("#cnh-motorista").disabled = false
     e.querySelector("#editar").classList.add("modelo")
     e.querySelector("#salvar").classList.remove("modelo")
-    e.querySelector("#finalizar").classList.add("modelo")
+}
+
+function salvarMotorista(e) {
+    const data = {
+        "id_motorista": Number(e.querySelector("#id-motorista").innerHTML),
+        "nome": e.querySelector("#nome-motorista").value,
+        "cpf": e.querySelector("#cpf-motorista").value,
+        "cnh": e.querySelector("#cnh-motorista").value
+    }
+
+    console.log(data)
+
+    fetch(`http://localhost:3000/motorista`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(updatedUser => {
+
+            carregarMotoristas()
+            alert('Motorista atualizado com sucesso!', updatedUser)
+        }
+        )
+        .catch(error => console.error('Erro ao atualizar motorista.', error))
 }

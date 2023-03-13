@@ -12,15 +12,25 @@ const create = async (req, res) => {
 }
 
 const read = async (req, res) => {
-    const manutencao = await prisma.manutencao.findMany()
+    const manutencao = await prisma.manutencao.findMany({
+        select: {
+            id_manutencao: true,
+            data_inicio: true,
+            data_fim: true,
+            custo: true,
+            desc: true,
+            veiculo: true
+        }
+    })
 
     res.status(200).json(manutencao).end()
 }
 
 const update = async (req, res) => {
+    console.log(req.body)
     const manutencao = await prisma.manutencao.update({
         where: {
-            id: Number(req.body.id)
+            id_manutencao: req.body.id_manutencao
         },
         data: req.body
     })
