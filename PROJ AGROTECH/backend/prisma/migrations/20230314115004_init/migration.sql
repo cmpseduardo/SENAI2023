@@ -30,6 +30,7 @@ CREATE TABLE `Veiculo` (
     `marca` VARCHAR(191) NOT NULL,
     `tipo` VARCHAR(191) NOT NULL,
     `disponivel` BOOLEAN NOT NULL DEFAULT true,
+    `alocado` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id_veiculo`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -42,6 +43,7 @@ CREATE TABLE `Manutencao` (
     `data_fim` DATETIME(3) NULL,
     `custo` DOUBLE NOT NULL,
     `desc` VARCHAR(191) NOT NULL,
+    `finalizado` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id_manutencao`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

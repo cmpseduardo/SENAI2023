@@ -8,6 +8,8 @@
     <title>Dashboard AgroTech</title>
     <link rel="stylesheet" href="style.css">
     <script src="./script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body onload="contar(), alocacoesRecentes(), carregarOptionsAlocacao(), carregarOptionsManutencoes()">
@@ -66,28 +68,21 @@
 
                 <div class="box box1">
                     <div class="text">
-                        <h2 class="topic-heading" id="n-veic"></h2>
+                        <h2 class="topic-heading" id="n-veic">0</h2>
                         <h2 class="topic">Veículos no total</h2>
-                    </div>
-                </div>
-
-                <div class="box box2">
-                    <div class="text">
-                        <h2 class="topic-heading" id="n-veic-manutencoes"></h2>
-                        <h2 class="topic">Veículos em Manutenção</h2>
                     </div>
                 </div>
 
                 <div class="box box3">
                     <div class="text">
-                        <h2 class="topic-heading" id="veic-uso"></h2>
-                        <h2 class="topic">Veículos em Uso</h2>
+                        <h2 class="topic-heading" id="veic-uso">0</h2>
+                        <h2 class="topic">Veículos Indisponíveis</h2>
                     </div>
                 </div>
 
                 <div class="box box5">
                     <div class="text">
-                        <h2 class="topic-heading" id="n-motoristas"></h2>
+                        <h2 class="topic-heading" id="n-motoristas">0</h2>
                         <h2 class="topic">Motoristas</h2>
                     </div>
                 </div>
@@ -125,6 +120,10 @@
                     <tbody class="tbody-alocacoes-painel">
                     </tbody>
                 </table>
+            </div>
+
+            <div style="height:500px; width:500px; margin-top: 100px;">
+                <canvas id="meuGrafico"></canvas>
             </div>
         </div>
 
@@ -281,7 +280,10 @@
                         <td><input id="marca-veiculo" disabled></td>
                         <td><input id="tipo-veiculo" disabled></td>
                         <td id="disponivel-veiculo"></td>
-                        <td><button>Editar</button></td>
+                        <td><button id="editar" onclick="editarVeiculo(this.parentNode.parentNode)">Editar</button>
+                        </td>
+                        <td><button id="salvar" class="modelo"
+                                onclick="salvarVeiculo(this.parentNode.parentNode)">Salvar</button></td>
 
                     </tr>
                 </thead>
@@ -293,6 +295,7 @@
     </div>
     </div>
     </div>
+
 </body>
 
 </html>

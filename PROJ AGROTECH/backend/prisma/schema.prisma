@@ -11,50 +11,52 @@ datasource db {
 }
 
 model Usuario {
-  id_usuario Int @id @default(autoincrement())
-  email String
-  senha String
-  nome String
-  tipo String
+  id_usuario Int    @id @default(autoincrement())
+  email      String
+  senha      String
+  nome       String
+  tipo       String
 }
 
 model Motorista {
-  id_motorista Int @id @default(autoincrement())
-  nome String
-  cpf String @unique
-  cnh String @unique
-  disponivel Boolean @default(true)
-  alocacao Alocacao[]
+  id_motorista Int        @id @default(autoincrement())
+  nome         String
+  cpf          String     @unique
+  cnh          String     @unique
+  disponivel   Boolean    @default(true)
+  alocacao     Alocacao[]
 }
 
 model Veiculo {
-  id_veiculo Int @id @default(autoincrement())
-  placa String
-  modelo String
-  marca String
-  tipo String
-  disponivel Boolean @default(true)
-  alocacao Alocacao[]
+  id_veiculo Int          @id @default(autoincrement())
+  placa      String
+  modelo     String
+  marca      String
+  tipo       String
+  disponivel Boolean      @default(true)
+  alocado    Boolean      @default(false)
+  alocacao   Alocacao[]
   manutencao Manutencao[]
 }
 
 model Manutencao {
-  id_manutencao Int @id @default(autoincrement())
-  id_veiculo Int
-  data_inicio DateTime @default(now())
-  data_fim DateTime?
-  custo Float
-  desc String
-  veiculo Veiculo @relation(fields: [id_veiculo], references: [id_veiculo])
+  id_manutencao Int       @id @default(autoincrement())
+  id_veiculo    Int
+  data_inicio   DateTime  @default(now())
+  data_fim      DateTime?
+  custo         Float
+  desc          String
+  finalizado    Boolean   @default(false)
+  veiculo       Veiculo   @relation(fields: [id_veiculo], references: [id_veiculo])
 }
 
-model Alocacao{
-  id_alocacao Int @id @default(autoincrement())
+model Alocacao {
+  id_alocacao  Int       @id @default(autoincrement())
   id_motorista Int
-  id_veiculo Int
-  data_saida DateTime @default(now())
+  id_veiculo   Int
+  data_saida   DateTime  @default(now())
   data_retorno DateTime?
-  desc String
-  motorista Motorista @relation(fields: [id_motorista], references: [id_motorista])
-  veiculo Veiculo @relation(fields: [id_veiculo], references: [id_veiculo])
+  desc         String
+  motorista    Motorista @relation(fields: [id_motorista], references: [id_motorista])
+  veiculo      Veiculo   @relation(fields: [id_veiculo], references: [id_veiculo])
 }

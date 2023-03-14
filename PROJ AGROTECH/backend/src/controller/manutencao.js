@@ -19,7 +19,8 @@ const read = async (req, res) => {
             data_fim: true,
             custo: true,
             desc: true,
-            veiculo: true
+            veiculo: true,
+            finalizado: true
         }
     })
 

@@ -13,7 +13,7 @@
     --background-color3: #ededed;
     --background-color4: #f8f8f8;
     --primary-color: #49ac74;
-    --secondary-color: #12be0c;
+    --secondary-color: #f00000;
     --Border-color: #239700;
     --one-use-color: #7aa634;
     --two-use-color: #dea405;
@@ -95,6 +95,7 @@ header {
     overflow-x: hidden;
     padding: 40px 30px 30px 30px;
 }
+
 
 .main-home::-webkit-scrollbar-thumb {
     background-image:

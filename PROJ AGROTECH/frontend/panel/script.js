@@ -1,74 +1,99 @@
 const buttonOrdemDesc = document.querySelector("#alterar-ordem-desc")
 const buttonOrdemCresc = document.querySelector("#alterar-ordem-cresc")
 
+
 // PAINEL
-function contar() {
-    function veiculos() {
-        let cont = 0
-        fetch("http://localhost:3000/veiculo")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                data.forEach(veiculo => {
-                    cont++
-                    if (veiculo != undefined) {
-                        document.querySelector("#n-veic").innerHTML = cont
-                    }
-                })
-            })
-    }
-    function veiculosManutencao() {
-        let cont = 0
-        fetch("http://localhost:3000/manutencao")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                data.forEach(manutencao => {
-                    cont++
-                    if (manutencao != undefined) {
-                        document.querySelector("#n-veic-manutencoes").innerHTML = cont
-                    }
-                })
-            })
-    }
-    function veiculosEmUso() {
-        let cont = 0
-        fetch("http://localhost:3000/veiculo")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                data.forEach(veiculo => {
-                    if (veiculo != undefined && veiculo.disponivel == false) {
-                        cont++
-                        document.querySelector("#veic-uso").innerHTML = cont
-                    }
-                })
-            })
-    }
-    function motoristas() {
-        let cont = 0
-        fetch("http://localhost:3000/motorista")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                data.forEach(motorista => {
-                    cont++
-                    if (motorista != undefined) {
-                        document.querySelector("#n-motoristas").innerHTML = cont
-                    }
-                })
-            })
+async function contar() {
+
+    var contVeic = 0
+    var contVeicDisp = 0
+    var contVeicUso = 0
+    var contMoto = 0
+
+    async function veiculos() {
+        const response = await fetch("http://localhost:3000/veiculo")
+        const data = await response.json()
+        data.forEach(veiculo => {
+            contVeic++
+            if (veiculo != undefined) {
+                document.querySelector("#n-veic").innerHTML = contVeic
+            }
+        })
     }
 
-    veiculos()
-    veiculosManutencao()
-    veiculosEmUso()
-    motoristas()
+    async function veiculosDisp() {
+        const response = await fetch("http://localhost:3000/veiculo")
+        const data = await response.json()
+        data.forEach(veiculo => {
+            if (veiculo != undefined && veiculo.disponivel == true) {
+                contVeicDisp++
+                document.querySelector("#n-veic").innerHTML = contVeicDisp
+            }
+        })
+    }
+
+    async function veiculosEmUso() {
+        const response = await fetch("http://localhost:3000/veiculo")
+        const data = await response.json()
+        data.forEach(veiculo => {
+            if (veiculo != undefined && veiculo.disponivel == false) {
+                contVeicUso++
+                document.querySelector("#veic-uso").innerHTML = contVeicUso
+            }
+        })
+    }
+
+    async function motoristas() {
+        const response = await fetch("http://localhost:3000/motorista")
+        const data = await response.json()
+        data.forEach(motorista => {
+            contMoto++
+            if (motorista != undefined) {
+                document.querySelector("#n-motoristas").innerHTML = contMoto
+            }
+        })
+    }
+
+    await veiculosDisp()
+    await veiculosEmUso()
+    await motoristas()
+    await veiculos()
+
+    var ctx = document.getElementById('meuGrafico').getContext('2d')
+
+    function criarGrafico() {
+        console.log(contVeic, contVeicDisp, contVeicUso, contMoto)
+        var meuGrafico = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Veículos Indisponíveis', 'Veículos Disponíveis'],
+                datasets: [{
+                    label: 'Veículos',
+                    data: [contVeicUso, contVeicDisp],
+                    backgroundColor: [
+                        '#ff0000f9',
+                        '#12be0c'
+                    ],
+                    borderColor: 'rgba(255,255,255,1)',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'right',
+                    labels: {
+                        fontColor: 'white'
+                    }
+                }
+            }
+
+        })
+    }
+
+    criarGrafico()
 }
+
 
 function alocacoesRecentes() {
     let itemAlocacao = document.querySelector(".informacoes-alocacao-painel")
@@ -437,6 +462,7 @@ function carregarVeiculos() {
 
                 document.querySelector(".tbody-veiculos").appendChild(novoItem);
             })
+
         })
 }
 
@@ -544,10 +570,10 @@ function cadastrarVeiculo() {
 
 
 function cadastrarAlocacao() {
-    let data = JSON.stringify({
-        id_motorista: Number(document.querySelector("#select-motorista").value),
-        id_veiculo: Number(document.querySelector("#select-veiculo").value),
-        desc: document.querySelector("#desc-alocacao").value
+    const data = JSON.stringify({
+        "id_motorista": Number(document.querySelector("#select-motorista").value),
+        "id_veiculo": Number(document.querySelector("#select-veiculo").value),
+        "desc": document.querySelector("#desc-alocacao").value
     });
 
 
@@ -563,6 +589,29 @@ function cadastrarAlocacao() {
             // console.log(data)
             if (data.id_alocacao != undefined) {
                 alert("Cadastrado com sucesso!")
+            } else {
+                alert("Ocorreu algum erro");
+            }
+        })
+
+    const alterarDisp = JSON.stringify({
+        "id_motorista": Number(document.querySelector("#select-motorista").value),
+        "disponivel": false
+    })
+
+    fetch("http://localhost:3000/motorista", {
+        "method": 'POST',
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": alterarDisp
+    })
+        .then(resp => { return resp.json() })
+        .then(data => {
+            // console.log(data)
+            if (data.id_motorista != undefined) {
+                alert("Cadastrado com sucesso!")
+                carregarAlocacoes()
             } else {
                 alert("Ocorreu algum erro");
             }
@@ -750,7 +799,8 @@ function finalizarManutencao(e) {
 
     const data = {
         "id_manutencao": Number(e.querySelector("#id-manutencao").innerHTML),
-        "data_fim": dataFormatada
+        "data_fim": dataFormatada,
+        "finalizado": true
     }
 
     fetch(`http://localhost:3000/manutencao`, {
@@ -761,7 +811,7 @@ function finalizarManutencao(e) {
         .then(response => response.json())
         .then(updatedUser => {
             alert('Manutenção atualizada com sucesso!', updatedUser)
-            carregarManutencoes()
+            carregarPainel()
         }
         )
         .catch(error => console.error('Erro ao atualizar manutenção.', error))
@@ -822,4 +872,37 @@ function salvarMotorista(e) {
         }
         )
         .catch(error => console.error('Erro ao atualizar motorista.', error))
+}
+
+function editarVeiculo(e) {
+    e.querySelector("#modelo-veiculo").disabled = false
+    e.querySelector("#marca-veiculo").disabled = false
+    e.querySelector("#tipo-veiculo").disabled = false
+    e.querySelector("#editar").classList.add("modelo")
+    e.querySelector("#salvar").classList.remove("modelo")
+}
+
+function salvarVeiculo(e) {
+    const data = {
+        "id_veiculo": Number(e.querySelector("#id-veiculo").innerHTML),
+        "modelo": e.querySelector("#modelo-veiculo").value,
+        "marca": e.querySelector("#marca-veiculo").value,
+        "tipo": e.querySelector("#tipo-veiculo").value
+    }
+
+    console.log(data)
+
+    fetch(`http://localhost:3000/veiculo`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(updatedUser => {
+
+            carregarVeiculos()
+            alert('Veiculo atualizado com sucesso!', updatedUser)
+        }
+        )
+        .catch(error => console.error('Erro ao atualizar veiculo.', error))
 }
