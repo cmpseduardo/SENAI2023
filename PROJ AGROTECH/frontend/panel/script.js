@@ -43,6 +43,8 @@ async function contar() {
         })
     }
 
+    var motoristasDisp = 0
+    var motoristasIndisp = 0
     async function motoristas() {
         const response = await fetch("http://localhost:3000/motorista")
         const data = await response.json()
@@ -50,6 +52,12 @@ async function contar() {
             contMoto++
             if (motorista != undefined) {
                 document.querySelector("#n-motoristas").innerHTML = contMoto
+            }
+
+            if (motorista.disponivel == true) {
+                motoristasDisp++
+            } else if (motorista.disponivel == false) {
+                motoristasIndisp++
             }
         })
     }
@@ -59,7 +67,7 @@ async function contar() {
     await motoristas()
     await veiculos()
 
-    var ctx = document.getElementById('meuGrafico').getContext('2d')
+    var ctx = document.getElementById('grafico-veiculos').getContext('2d')
 
     function criarGrafico() {
         console.log(contVeic, contVeicDisp, contVeicUso, contMoto)
@@ -92,7 +100,43 @@ async function contar() {
     }
 
     criarGrafico()
+
+    var ctz = document.getElementById('grafico-motoristas').getContext('2d')
+
+    function criarGraficoMotoristas() {
+        var graficoMotoristas = new Chart(ctz, {
+            type: 'pie',
+            data: {
+                labels: ['Motoristas Indisponíveis', 'Motoristas Disponíveis'],
+                datasets: [{
+                    label: 'Motoristas',
+                    data: [motoristasIndisp, motoristasDisp],
+                    backgroundColor: [
+                        '#dea405',
+                        '#239700'
+                    ],
+                    borderColor: 'rgba(255,255,255,1)',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'right',
+                    labels: {
+                        fontColor: 'white'
+                    }
+                }
+            }
+
+        })
+    }
+
+    criarGraficoMotoristas()
 }
+
+
+
 
 
 function alocacoesRecentes() {
@@ -124,7 +168,8 @@ function alocacoesRecentes() {
                 veiculo.innerHTML = item.veiculo.placa;
                 dataSaida.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(item.data_saida));
                 if (item.data_retorno == null) {
-                    dataRetorno.innerHTML = ""
+                    dataRetorno.innerHTML = "AGUARDANDO RETORNO"
+                    dataRetorno.style.color = "#dea405"
                 } else {
                     dataRetorno.innerHTML = Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(item.data_retorno));
                 }
@@ -297,7 +342,8 @@ function carregarAlocacoes() {
 
                 dataSaida.innerHTML = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_saida));
                 if (alocacao.data_retorno == null) {
-                    dataRetorno.innerHTML = ""
+                    dataRetorno.innerHTML = "AGUARDANDO RETORNO"
+                    dataRetorno.style.color = "#dea405"
                 } else {
                     dataRetorno.innerHTML = Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(alocacao.data_retorno));
                     novoItem.querySelector("#editar").remove()
@@ -830,7 +876,7 @@ function finalizarManutencao(e) {
         .then(response => response.json())
         .then(updatedUser => {
             alert('Veículo disponível!', updatedUser)
-            window.reload()
+            window.location.reload()
 
         }
         )
