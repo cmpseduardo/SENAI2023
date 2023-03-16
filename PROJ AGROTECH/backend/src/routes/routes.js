@@ -6,6 +6,12 @@ const Motorista = require('../controller/motorista.js')
 const Veiculo = require('../controller/veiculo.js')
 const Manutencao = require('../controller/manutencao.js')
 const Alocacao = require('../controller/alocacao.js')
+const Login = require('../controller/login.js')
+const ValidaAcesso = require('../middleware/middleware')
+
+router.post('*', ValidaAcesso)
+router.put('*', ValidaAcesso)
+router.delete('*', ValidaAcesso)
 
 router.get('/motorista', Motorista.read);
 router.get('/veiculo', Veiculo.read);
@@ -18,6 +24,7 @@ router.post('/manutencao', Manutencao.create)
 router.post('/veiculo', Veiculo.create)
 router.post('/alocacao', Alocacao.create)
 router.post('/usuario', Usuario.create)
+router.post('/login', Login)
 
 router.delete('/motorista', Motorista.remove)
 router.delete('/manutencao', Manutencao.remove)

@@ -1,7 +1,17 @@
 const buttonOrdemDesc = document.querySelector("#alterar-ordem-desc")
 const buttonOrdemCresc = document.querySelector("#alterar-ordem-cresc")
 
+let userData = {}
 
+try {
+    userData = JSON.parse(localStorage.getItem("data"));
+
+    if (userData.token == undefined) {
+        window.location.href = "../login/"
+    }
+} catch (err) {
+    window.location.href = "../login/"
+}
 // PAINEL
 async function contar() {
 
@@ -566,12 +576,13 @@ function cadastrarMotorista() {
         cpf: document.querySelector("#cpf-motorista-input").value,
         cnh: document.querySelector("#cnh-motorista-input").value,
     });
-
-
+    console.log(userData.token);
+    //VOLTA AQUI
     fetch("http://localhost:3000/motorista", {
         "method": 'POST',
         "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": userData.token
         },
         "body": data
     })

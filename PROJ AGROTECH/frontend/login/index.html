@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <title>Faça Login</title>
 </head>
+
 <body>
     <div class="texts">
         <h1>Agro</br>Tech</h1>
@@ -14,9 +17,10 @@
     </div>
     <div class="login">
         <h1>Faça Login</h1>
-            <input placeholder="Digite seu e-mail"/>
-            <input placeholder="Digite sua senha"/>
-        <button>ACESSAR</button>
+        <input id="email" placeholder="Digite seu e-mail" value="teste3@gmail.com" />
+        <input id="senha" placeholder="Digite sua senha" value="1234" />
+        <button onclick="fazerLogin()">ACESSAR</button>
     </div>
 </body>
+
 </html>

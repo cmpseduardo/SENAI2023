@@ -19,12 +19,16 @@ export default function Manutencoes() {
         <View style={styles.container}>
             <Text style={styles.title}>Manutenção</Text>
             {manutencoes.map(manutencoes => (
-                <View style={styles.box} key={manutencoes.id}>
-                    <Text style={styles.text}>ID: {manutencoes.id_manutencao}</Text>
-                    <Text style={styles.text}>Data Início: {moment(manutencoes.data_inicio).format('DD/MM/YYYY HH:mm')}</Text>
-                    <Text style={styles.text}>Data Fim: {moment(manutencoes.data_fim).format('DD/MM/YYYY HH:mm')}</Text>
-                    <Text style={styles.text}>Custo: {manutencoes.custo}</Text>
-                    <Text style={styles.text}>Descrição: {manutencoes.desc}</Text>
+                <View style={styles.box} key={manutencoes.id_manutencao}>
+                    <Text style={styles.textLabel}>ID: {manutencoes.id_manutencao}</Text>
+                    <Text style={styles.textLabel}>Data Início: {moment(manutencoes.data_inicio).format('DD/MM/YYYY HH:mm')}</Text>
+                    {manutencoes.data_fim ? (
+                        <Text style={styles.textLabel}>Data Fim: {moment(manutencoes.data_fim).format('DD/MM/YYYY HH:mm')}</Text>
+                    ) : (
+                        <Text style={styles.textLabel}>Data Fim: <Text style={styles.textAlter}>AGUARDANDO FIM</Text></Text>
+                    )}
+                    <Text style={styles.textLabel}>Custo: {manutencoes.custo}</Text>
+                    <Text style={styles.textLabel}>Descrição: {manutencoes.desc}</Text>
                 </View>
             ))}
         </View>
@@ -60,12 +64,16 @@ const styles = StyleSheet.create({
         elevation: 2,
         gap: 10,
     },
-    text: {
+    textLabel: {
         color: '#288e00',
         fontWeight: 'bold',
         borderWidth: 1,
         borderColor: '#288e00',
         padding: 7,
         borderRadius: 10,
+    },
+    textAlter: {
+        color: '#dea405',
+        fontWeight: 'bold',
     }
 });

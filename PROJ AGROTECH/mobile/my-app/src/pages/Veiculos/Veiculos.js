@@ -15,7 +15,7 @@ export default function Veiculos() {
         <View style={styles.container}>
             <Text style={styles.title}>Veículos</Text>
             {veiculos.map(veiculo => (
-                <View style={styles.box} key={veiculo.id}>
+                <View style={styles.box} key={veiculo.id_veiculo}>
                     <Text style={styles.text}>ID: {veiculo.id_veiculo}</Text>
                     <Text style={styles.text}>Placa: {veiculo.placa}</Text>
                     <Text style={styles.text}>Modelo: {veiculo.modelo}</Text>

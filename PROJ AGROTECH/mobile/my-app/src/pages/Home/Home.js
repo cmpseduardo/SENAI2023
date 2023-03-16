@@ -6,9 +6,14 @@ export default function Home({ navigation }) {
         <View style={styles.container}>
             <Text style={styles.title}>AgroTech</Text>
 
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Alocacoes')}>
+                <Text style={styles.textButton}>CADASTRAR ALOCAÇÃO</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Veiculos')}>
                 <Text style={styles.textButton}>VER VEÍCULOS DISPONÍVEIS</Text>
             </TouchableOpacity>
+
 
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Manutencoes')}>
                 <Text style={styles.textButton}>VER MANUTENÇÕES</Text>
