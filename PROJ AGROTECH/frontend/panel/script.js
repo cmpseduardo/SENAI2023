@@ -5,6 +5,7 @@ let userData = {}
 
 try {
     userData = JSON.parse(localStorage.getItem("data"));
+    console.log(userData)
 
     if (userData.token == undefined) {
         window.location.href = "../login/"
@@ -12,6 +13,8 @@ try {
 } catch (err) {
     window.location.href = "../login/"
 }
+
+
 // PAINEL
 async function contar() {
 
@@ -536,7 +539,8 @@ function cadastrarManutencoes() {
     fetch("http://localhost:3000/manutencao", {
         "method": 'POST',
         "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": userData.token
         },
         "body": data
     })
@@ -557,8 +561,11 @@ function cadastrarManutencoes() {
 
 
     fetch(`http://localhost:3000/veiculo`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        "method": 'PUT',
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": userData.token
+        },
         body: JSON.stringify(alteracao),
     })
         .then(response => response.json())
@@ -610,7 +617,8 @@ function cadastrarVeiculo() {
     fetch("http://localhost:3000/veiculo", {
         "method": 'POST',
         "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": userData.token
         },
         "body": data
     })
@@ -637,7 +645,8 @@ function cadastrarAlocacao() {
     fetch("http://localhost:3000/alocacao", {
         "method": 'POST',
         "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": userData.token
         },
         "body": data
     })
@@ -659,7 +668,8 @@ function cadastrarAlocacao() {
     fetch("http://localhost:3000/motorista", {
         "method": 'POST',
         "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": userData.token
         },
         "body": alterarDisp
     })
@@ -688,8 +698,11 @@ function finalizarAlocacao(e) {
     }
 
     fetch(`http://localhost:3000/alocacao`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        "method": 'PUT',
+        "headers": {
+            'Content-Type': 'application/json',
+            "Authorization": userData.token
+        },
         body: JSON.stringify(data),
     })
         .then(response => response.json())
@@ -723,8 +736,11 @@ function salvarAlocacao(e) {
     e.querySelector("#descricao-alocacao").disabled = true
 
     fetch(`http://localhost:3000/alocacao/desc`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        "method": 'PUT',
+        "headers": {
+            "Content-Type": 'application/json',
+            "Authorization": userData.token
+        },
         body: JSON.stringify(data),
     })
         .then(response => response.json())
@@ -834,9 +850,12 @@ function salvarManutencao(e) {
     e.querySelector("#custo-manutencao").disabled = true
 
     fetch(`http://localhost:3000/manutencao`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        "method": 'PUT',
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": userData.token
+        },
+        "body": JSON.stringify(data),
     })
         .then(response => response.json())
         .then(updatedUser => {
@@ -862,7 +881,10 @@ function finalizarManutencao(e) {
 
     fetch(`http://localhost:3000/manutencao`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": userData.token
+        },
         body: JSON.stringify(data),
     })
         .then(response => response.json())
@@ -880,8 +902,11 @@ function finalizarManutencao(e) {
     }
 
     fetch(`http://localhost:3000/veiculo`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        "method": 'PUT',
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": userData.token
+        },
         body: JSON.stringify(alteracao),
     })
         .then(response => response.json())
@@ -917,9 +942,12 @@ function salvarMotorista(e) {
     console.log(data)
 
     fetch(`http://localhost:3000/motorista`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        "method": 'PUT',
+        "headers": {
+            'Content-Type': 'application/json',
+            "Authorization": userData.token
+        },
+        "body": JSON.stringify(data),
     })
         .then(response => response.json())
         .then(updatedUser => {
@@ -950,9 +978,12 @@ function salvarVeiculo(e) {
     console.log(data)
 
     fetch(`http://localhost:3000/veiculo`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        "method": 'PUT',
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": userData.token
+        },
+        "body": JSON.stringify(data),
     })
         .then(response => response.json())
         .then(updatedUser => {

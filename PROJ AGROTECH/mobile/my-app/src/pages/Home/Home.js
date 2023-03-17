@@ -10,10 +10,13 @@ export default function Home({ navigation }) {
                 <Text style={styles.textButton}>CADASTRAR ALOCAÇÃO</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Veiculos')}>
-                <Text style={styles.textButton}>VER VEÍCULOS DISPONÍVEIS</Text>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('VerAlocacoes')}>
+                <Text style={styles.textButton}>VER ALOCAÇÕES</Text>
             </TouchableOpacity>
 
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Veiculos')}>
+                <Text style={styles.textButton}>VER VEÍCULOS</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Manutencoes')}>
                 <Text style={styles.textButton}>VER MANUTENÇÕES</Text>

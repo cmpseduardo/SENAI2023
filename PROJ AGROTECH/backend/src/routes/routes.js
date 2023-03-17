@@ -9,9 +9,9 @@ const Alocacao = require('../controller/alocacao.js')
 const Login = require('../controller/login.js')
 const ValidaAcesso = require('../middleware/middleware')
 
-// router.post('*', ValidaAcesso)
-// router.put('*', ValidaAcesso)
-// router.delete('*', ValidaAcesso)
+router.post('*', ValidaAcesso)
+router.put('*', ValidaAcesso)
+router.delete('*', ValidaAcesso)
 
 router.get('/motorista', Motorista.read);
 router.get('/veiculo', Veiculo.read);

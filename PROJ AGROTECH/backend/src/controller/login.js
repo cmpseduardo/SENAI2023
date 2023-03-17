@@ -22,7 +22,7 @@ const login = async (req, res) => {
         delete user.senha
         delete user.email
 
-        jwt.sign(user, process.env.KEY, { expiresIn: '1m' }, function (err, token) {
+        jwt.sign(user, process.env.KEY, { expiresIn: '10s' }, function (err, token) {
             if (err == null) {
                 user.token = token;
                 res.status(200).json(user).end();

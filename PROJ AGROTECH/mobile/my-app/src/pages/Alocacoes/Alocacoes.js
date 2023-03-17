@@ -16,10 +16,11 @@ export default function Alocacoes() {
 
 
     const enviarAlocacaoParaBancoDeDados = (alocacao) => {
-        return fetch('http://localhost:3000/alocacao', {
+        return fetch('http://10.87.207.25:3000/alocacao', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                // 'Authorization': userData.token
             },
             body: JSON.stringify(alocacao)
         });
@@ -27,7 +28,7 @@ export default function Alocacoes() {
 
     const carregarMotoristas = async () => {
         try {
-            const response = await fetch('http://localhost:3000/motorista');
+            const response = await fetch('http://10.87.207.25:3000/motorista');
             const data = await response.json();
             setMotoristas(data.filter((motorista) => motorista.disponivel));
         } catch (error) {
@@ -37,7 +38,7 @@ export default function Alocacoes() {
 
     const carregarVeiculos = async () => {
         try {
-            const response = await fetch('http://localhost:3000/veiculo');
+            const response = await fetch('http://10.87.207.25:3000/veiculo');
             const data = await response.json();
             setVeiculos(data.filter((veiculo) => veiculo.disponivel));
         } catch (error) {
@@ -52,12 +53,9 @@ export default function Alocacoes() {
         }
 
         const novaAlocacao = {
-            id: alocacoes.length + 1,
-            motorista: selectedMotorista,
-            veiculo: selectedVeiculo,
-            data_saida: new Date(),
-            data_retorno: null,
-            descricao: descricao,
+            id_motorista: selectedMotorista,
+            id_veiculo: selectedVeiculo,
+            desc: descricao,
         };
 
         enviarAlocacaoParaBancoDeDados(novaAlocacao)
@@ -70,6 +68,8 @@ export default function Alocacoes() {
             .catch(error => {
                 console.error(error);
             });
+
+        { alert("ALOCAÇÃO CADASTRADA COM SUCESSO") }
     };
 
 
@@ -99,14 +99,14 @@ export default function Alocacoes() {
                     <Text style={styles.label}>Veículo</Text>
                     <View style={styles.selectContainer}>
                         <TouchableOpacity style={styles.select}>
-                            <Text>{selectedVeiculo ? `Placa ${selectedVeiculo}` : 'Selecione um veículo:'}</Text>
+                            <Text>{selectedVeiculo ? `ID ${selectedVeiculo}` : 'Selecione um veículo:'}</Text>
                         </TouchableOpacity>
                         <View style={styles.optionsContainer}>
                             {veiculos.map((veiculo) => (
                                 <TouchableOpacity
                                     key={veiculo.id_veiculo}
                                     style={styles.option}
-                                    onPress={() => setSelectedVeiculo(veiculo.placa)}
+                                    onPress={() => setSelectedVeiculo(veiculo.id_veiculo)}
                                 >
                                     <Text>Placa {veiculo.placa} - {veiculo.modelo}</Text>
                                 </TouchableOpacity>
